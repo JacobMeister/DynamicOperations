@@ -32,6 +32,8 @@ modded class SCR_ScenarioFrameworkPluginTrigger
 		m_bEnableAudio = true;
 		m_sCountdownAudio = "SOUND_RESPAWNMENU";
 		m_fActivationCountdownTimer = seconds;
+		m_bNotificationEnabled = true;
+		m_sPlayerActivationNotificationTitle = "Extraction in " + seconds + " seconds";
 	}
 }
 
@@ -55,6 +57,21 @@ modded class SCR_ScenarioFrameworkSlotTrigger
 	{
 		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
 		m_aPlugins.Insert(plugin);
+	}
+}
+
+modded class SCR_ScenarioFrameworkSlotClearArea
+{
+	void AddPlugin(SCR_ScenarioFrameworkPlugin plugin)
+	{
+		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
+		m_aPlugins.Insert(plugin);
+	}
+	
+	void SetTitleAndDescription(string taskTitle, string taskDescription)
+	{
+		m_sTaskTitle = taskTitle;
+		m_sTaskDescription = taskDescription;
 	}
 }
 
