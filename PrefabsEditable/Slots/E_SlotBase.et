@@ -1,0 +1,7 @@
+SCR_SiteSlotEntity {
+ ID "51B0BC2502CB89BD"
+ components {
+  Hierarchy "{5D5E917AA6B6E33F}" {
+  }
+ }
+}

@@ -1,0 +1,86 @@
+SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
+ components {
+  NavmeshWorldComponent "{5584F30E67F617AD}" {
+   NavmeshSettings NavmeshWorld "{50FC63BEBE3973C5}" {
+    NavmeshFilesConfig BaseNavmeshFilesConfig "{5D4AB9F28623C8A6}" {
+     NavmeshFile "{AD5F99CD7C59D5E0}worlds/GameMaster/Navmeshes/GM_Eden.nmn"
+    }
+   }
+  }
+  NavmeshWorldComponent "{5C8C9B750D124A63}" {
+   NavmeshSettings NavmeshWorld "{5C8C9B750B60C6E2}" {
+    NavmeshFilesConfig BaseNavmeshFilesConfig "{5C90BD0EC793647D}" {
+     NavmeshFile "{AD5F99CD7C59D5E0}worlds/GameMaster/Navmeshes/GM_Eden.nmn"
+    }
+   }
+  }
+ }
+ coords 4853.97 28.605 11851.434
+}
+PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
+ coords 4855.498 28.605 11856.255
+}
+TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
+ coords 4855.421 28.605 11862.362
+}
+ScriptedChatEntity : "{536D80EB494DDC43}Prefabs/MP/Campaign/CampaignMPChatEntity.et" {
+ coords 4851.34 28.605 11857.366
+}
+SCR_FactionManager FactionManager_USxUSSR1 : "{589540B35EBA8CDC}Prefabs/MP/Managers/Factions/FactionManager_USxUSSR.et" {
+ coords 4852.833 28.605 11852.433
+ Factions {
+  SCR_Faction "{56B2B46E9AF80999}" {
+   m_bIsPlayable 0
+  }
+ }
+ m_bCanChangeFactionsPlayable 0
+}
+TimeAndWeatherManagerEntity : "{A3BAF78F6F03315B}Prefabs/World/Game/TimeAndWeatherManager.et" {
+ coords 4857.628 28.595 11851.296
+ "Internal variant transition" 0
+ "Internal subvariant 0" 0
+ "Internal subvariant 1" 0
+}
+RadioManagerEntity : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
+ coords 4855.889 28.605 11850.973
+}
+HitRegistrationManager HitRegManager1 : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
+ coords 4853.67 28.605 11854.632
+}
+SCR_SpawnPoint : "{45225582B358C31A}PrefabsEditable/SpawnPoints/E_SpawnPoint_USSR.et" {
+ coords 4884.112 28.595 11869.012
+}
+SCR_BaseTaskManager : "{87208DAD6F3C0DE2}Prefabs/MP/Managers/Tasks/TaskManager_Editor.et" {
+ coords 4856.498 28.605 11854.2
+ {
+  SCR_ScenarioFrameworkTaskClearAreaSupportEntity {
+   coords 7.302 -0.01 -2.095
+  }
+  SCR_ScenarioFrameworkTaskDefendSupportEntity {
+   coords 7.974 -0.01 -5.408
+  }
+  SCR_ScenarioFrameworkTaskDeliverSupportEntity {
+   coords 9.636 -0.01 -2.691
+  }
+  SCR_ScenarioFrameworkTaskDestroySupportEntity {
+   coords 11.871 -0.01 -0.342
+  }
+  SCR_ScenarioFrameworkTaskExtractSupportEntity {
+   coords 16.96 -0.01 -1.038
+  }
+  SCR_ScenarioFrameworkTaskKillSupportEntity {
+   coords 12.425 -0.01 -6.266
+  }
+  SCR_ScenarioFrameworkTaskSupportEntity {
+   coords 14.004 -0.01 -3.191
+  }
+ }
+}
+SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutManager_USxUSSR.et" {
+ coords 4851.678 28.605 11870.506
+ m_aPlayerLoadouts {
+  SCR_PlayerArsenalLoadout "{5D56D477D574B311}" {
+   m_sAffiliatedFaction "US"
+  }
+ }
+}

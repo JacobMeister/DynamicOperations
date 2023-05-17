@@ -1,0 +1,91 @@
+SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/GameMode_Plain.et" {
+ components {
+  SCR_ArsenalManagerComponent "{5D50B65079A0CB7F}" {
+  }
+  SCR_AutomaticRespawnHandlerComponent "{56B4EA4DA0EEFF85}" {
+   Enabled 0
+   m_iForcedFaction 0
+  }
+  SCR_CompositionSlotManagerComponent "{5D52C0F17E19924E}" {
+  }
+  SCR_GameModeCombatOpsManager "{5D55229E4763605A}" {
+  }
+  SCR_GameModeSFManager "{5D54E0AEB5A18237}" {
+   Enabled 0
+  }
+  SCR_GameOverScreenManagerComponent "{56DEC646298AD219}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{56DEC6462FFDD82D}" {
+    m_aGameOverScreens {
+     SCR_FactionVictoryGameOverScreenInfo "{568EB6DFEF507060}" {
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{568EB6DFF87D9C84}" {
+       m_sTitle "Mission Complete"
+       m_sSubtitle "All soldiers extracted!"
+      }
+     }
+    }
+   }
+  }
+  SCR_RespawnBriefingComponent "{5D4AB9FD394B382F}" {
+   m_Info SCR_UIInfo "{5D50B649B2893D6B}" {
+    Name "Complete the objectives"
+    Description "Three random objectives wil be spawned"
+    Icon "{3C50D67D082BA322}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_2_UI.edds"
+   }
+   m_aGameModeHints {
+    SCR_HintUIInfo "{5D550565FE5A8AA9}" {
+     Name "Complete objectives"
+     Description "Complete all objectives and extract"
+     Icon "{3C50D67D082BA322}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_2_UI.edds"
+    }
+   }
+   m_aWinConditions {
+    SCR_BriefingVictoryCondition "{5D50B649D1C0ACD2}" {
+     victoryCondition CUSTOM
+     name "Destroy Vehicle"
+     description "Destroy Vehicle"
+    }
+    SCR_BriefingVictoryCondition "{5D57356FF2193411}" {
+     victoryCondition GUARD
+     name "Kill High Value Target"
+     description "Kill High Value Target"
+    }
+    SCR_BriefingVictoryCondition "{5D57356FF2544512}" {
+     victoryCondition SEIZE
+     name "Clear Area"
+     description "Clear Area"
+    }
+    SCR_BriefingVictoryCondition "{5D57356FF2694608}" {
+     name "Exfiltrate"
+     description "Exfiltrate"
+    }
+   }
+  }
+  SCR_RespawnMenuHandlerComponent "{5D5E5B48DE70D5B7}" {
+  }
+  SCR_RespawnTimerComponent "{5D4AB9F278954146}" {
+   m_fRespawnTime 5
+  }
+  SCR_TimeAndWeatherHandlerComponent "{5D5505642458FA80}" {
+   m_iStartingHours 12
+   m_bRandomStartingDaytime 1
+   m_bRandomStartingWeather 1
+  }
+  SerializerInventoryStorageManagerComponent "{5D50B650751DEB42}" {
+  }
+  RplComponent "{56B2B4793BF2E1B4}" {
+  }
+ }
+ coords 4859.425 28.595 11863.532
+ userScript "	private ref SCR_DynamicOperations m_dynamicOperations;"\
+ "	"\
+ "	SCR_DynamicOperations GetDynamicOparations()"\
+ "	{"\
+ "		return m_dynamicOperations;"\
+ "		"\
+ "	}"
+ OnGameStart ""\
+ "		super.OnGameStart();"\
+ "		m_dynamicOperations = new SCR_DynamicOperations();"\
+ "		m_dynamicOperations.GenerateDynamicOperation();"\
+ "	"
+}
