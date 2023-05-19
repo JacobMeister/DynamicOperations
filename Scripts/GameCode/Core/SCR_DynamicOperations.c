@@ -7,7 +7,7 @@ class SCR_DynamicOperations
 	protected ref SCR_ExtractionCreator m_extrationCreator;
 	protected ref SCR_TaskGenerator m_taskGenerator; // will spawn mission objectives and create tasks
 	protected ref SCR_MissionEntitySpawner m_missionEntitySpawner; // will spawn ai, vehicles and prefabs in mission locations
-	protected ref SCR_PatrolEntitySpawner m_patrolEntitySpawner;	
+	protected ref SCR_PatrolEntitySpawner m_patrolEntitySpawner;
 	protected ref array<ref SCR_Location> m_missionLocations = {};
 	
 	void SCR_DynamicOperations()
@@ -28,11 +28,13 @@ class SCR_DynamicOperations
 	
 	void GenerateDynamicOperation()
 	{
+		Print("Beginning of Dynamic Operations logging");
 		DetermineAO();
 		m_taskGenerator.CreateTasks(m_missionLocations);
 		m_missionEntitySpawner.SpawnMissionEntities(m_missionLocations);
 		m_patrolEntitySpawner.SpawnPatrolEntities(m_missionLocations);
 		CreateSpawns();
+		Print("End of Dynamic Operations logging");
 	}
 	
 	protected void DetermineAO()

@@ -17,7 +17,6 @@ class SCR_SlotManager
 	// Retrieve all slots from hierarchy
 	void PopulateSlotsForLocation(IEntity slotParentEntity)
 	{
-		Print(slotParentEntity.GetChildren());
 		SCR_SiteSlotEntity entity = SCR_SiteSlotEntity.Cast(slotParentEntity.GetChildren());
 		m_slots.Insert(entity);
 		

@@ -1,14 +1,15 @@
 class SCR_Location
 {
-	private string m_name;
+	private string m_sName;
 	private IEntity m_entity;
 	private IEntity m_slotParentEntity;
 	private ref SCR_SlotManager m_slotManager;
 	private ref array<vector> m_patrolLocations = new array<vector>();
+	private ref array<vector> m_DeliveryLocations = new array<vector>();
 	
 	void SCR_Location(string name, IEntity entity, IEntity slotParentEntity)
 	{
-		m_name = name;
+		m_sName = name;
 		m_entity = entity;
 		m_slotParentEntity = slotParentEntity;
 		
@@ -28,7 +29,7 @@ class SCR_Location
 	
 	string GetName()
 	{
-		return m_name; 
+		return m_sName; 
 	}
 	
 	IEntity GetEntity()
@@ -50,5 +51,15 @@ class SCR_Location
 	array<vector> GetPatrolLocations()
 	{
 		return m_patrolLocations;
+	}
+	
+	void AddDeliveryLocation(vector deliveryLocation)
+	{
+		m_DeliveryLocations.Insert(deliveryLocation);
+	}
+	
+	array<vector> GetDeliveryLocations()
+	{
+		return m_DeliveryLocations;
 	}
 }

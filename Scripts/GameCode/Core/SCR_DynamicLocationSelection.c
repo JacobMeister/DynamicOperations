@@ -22,11 +22,6 @@ class SCR_DynamicLocationSelection
 		"G_Military", "G_Military3", "G_Military5", "G_Military6", "G_Quarry", "G_Sawmill", 
 		"G_MontfortCastle", "Barracks"
 	};
-	
-	protected static const ref array<string> m_possibleMissionLocations1 = 
-	{
-		"C_LocationChotain","C_LocationLaruns","Barracks"
-	};
 
 	protected static const ref array<string> m_patrolLocations = 
 	{
@@ -75,8 +70,9 @@ class SCR_DynamicLocationSelection
 	{
 		// select random Location
 		int randomIndex = m_random.RandInt(0, m_possibleMissionLocations.Count());
-		IEntity initialLocationEntity = GetGame().GetWorld().FindEntityByName(m_possibleMissionLocations[randomIndex]);
-		array<IEntity> possibleSecondaryMissionLocations = new array<IEntity>();
+		string initialLocationName = m_possibleMissionLocations[randomIndex];
+		IEntity initialLocationEntity = GetGame().GetWorld().FindEntityByName(initialLocationName);
+		array<string> possibleSecondaryMissionLocations = new array<string>();
 		
 		// filter all locations based on range to get other mission locations not too close or too far
 		foreach(string missionLocation : m_possibleMissionLocations)
@@ -86,15 +82,23 @@ class SCR_DynamicLocationSelection
 			
 			if(distance < 2500 && distance > 500)
 			{
-				possibleSecondaryMissionLocations.Insert(locationEntity);
+				possibleSecondaryMissionLocations.Insert(missionLocation);
 			}
 		}
 		
-		missionLocationArray.Insert(GetLocation(initialLocationEntity));
+		missionLocationArray.Insert(GetLocation(initialLocationName));
 		for (int i = 1; i < SCR_DynamicOperations.AMOUNT_OF_MISSIONS; i++)
 		{
 			int randomInt = m_random.RandInt(0, possibleSecondaryMissionLocations.Count());
-			ref SCR_Location loc = GetLocation(possibleSecondaryMissionLocations[randomInt]);
+			string possibleSecondaryMissionLocation = possibleSecondaryMissionLocations[randomInt];
+			// if for any possible reason this string is null, remove it from the list, and do it again
+			if(!possibleSecondaryMissionLocation)
+			{
+				possibleSecondaryMissionLocations.Remove(randomInt);
+				i--;
+				continue;
+			}
+			ref SCR_Location loc = GetLocation(possibleSecondaryMissionLocation);
 			missionLocationArray.Insert(loc);
 			possibleSecondaryMissionLocations.Remove(randomInt);
 		}
@@ -102,19 +106,32 @@ class SCR_DynamicLocationSelection
 		foreach(SCR_Location location : missionLocationArray)
 		{
 			GetPatrolLocations(location);
+			GetDeliveryLocations(location);
 		}
 	}
 	
-	SCR_Location GetLocation(IEntity locationEntity)
+	SCR_Location GetLocation(string locationName)
 	{
-		string entityName = locationEntity.GetName();
-		string mappedName = m_locationEntities.Get(entityName);
+		IEntity locationEntity = GetGame().GetWorld().FindEntityByName(locationName);
+		string mappedName = m_locationEntities.Get(locationName);
 		IEntity mappedEntity = GetGame().GetWorld().FindEntityByName(mappedName);
-		ref SCR_Location loc = new SCR_Location(entityName, locationEntity, mappedEntity);
+		if(!locationEntity || !mappedEntity)
+		{
+			if(!locationEntity)
+			{
+				Print("Could not find entity in world: " + locationName, LogLevel.ERROR);
+			}
+			else
+			{
+				Print("Could not find entity in world: " + mappedName, LogLevel.ERROR);
+			}
+			
+		}
+		ref SCR_Location loc = new SCR_Location(locationName, locationEntity, mappedEntity);
 		return loc;
 	}
 	
-	// Get all patrol locations between 300 and 1000 meters of the location and add them to the location
+	// Get all patrol locations between 300 and 1500 meters of the location and add them to the location
 	protected void GetPatrolLocations(SCR_Location location)
 	{
 		foreach(string patrolLocation : m_patrolLocations)
@@ -122,9 +139,24 @@ class SCR_DynamicLocationSelection
 			IEntity patrolLocationEntity = GetGame().GetWorld().FindEntityByName(patrolLocation);
 			int distance = GetDistanceBetweenEntities(location.GetEntity(), patrolLocationEntity);
 			
-			if(distance < 1000 && distance > 300 )
+			if(distance < 1500 && distance > 300 )
 			{
 				location.AddPatrolLocation(patrolLocationEntity.GetOrigin());
+			}
+		}
+	}
+	
+	// Get all patrol locations between 2500 and 3500 meters of the location and add them to the location
+	protected void GetDeliveryLocations(SCR_Location location)
+	{
+		foreach(string patrolLocation : m_patrolLocations)
+		{
+			IEntity patrolLocationEntity = GetGame().GetWorld().FindEntityByName(patrolLocation);
+			int distance = GetDistanceBetweenEntities(location.GetEntity(), patrolLocationEntity);
+			
+			if(distance < 3500 && distance > 2500 )
+			{
+				location.AddDeliveryLocation(patrolLocationEntity.GetOrigin());
 			}
 		}
 	}
@@ -182,6 +214,7 @@ class SCR_DynamicLocationSelection
 		}
 		
 		// select 2 random Locations
+		// Select Simonswood as backup location for both spawn and extraction location if no locations were found
 		if(spawnLocations.Count() == 0)
 		{
 			spawnArray.Insert(GetGame().GetWorld().FindEntityByName("L_SimonsWood"));
@@ -189,9 +222,20 @@ class SCR_DynamicLocationSelection
 		}
 		int firstRandom = m_random.RandInt(0, spawnLocations.Count());
 		spawnArray.Insert(spawnLocations[firstRandom]);
-		int spawnLocationIndex = m_spawnLocations.Find(spawnLocations[firstRandom].GetName());
-		m_spawnLocations.Remove(spawnLocationIndex);
-		spawnLocations.Remove(firstRandom);
+		string name = spawnLocations[firstRandom].GetName();
+		int spawnLocationIndex = m_spawnLocations.Find(name);
+		if(spawnLocationIndex != -1)
+		{
+			m_spawnLocations.Remove(spawnLocationIndex);
+			spawnLocations.Remove(firstRandom);
+		}
+		else
+		{
+			spawnLocationIndex = m_exfilLocations.Find(name);
+			m_exfilLocations.Remove(spawnLocationIndex);
+			spawnLocations.Remove(firstRandom);
+		}
+		
 		
 		
 		if(spawnLocations.Count() == 0)
@@ -201,6 +245,19 @@ class SCR_DynamicLocationSelection
 		int secondRandom = m_random.RandInt(0, spawnLocations.Count());
 		spawnArray.Insert(spawnLocations[secondRandom]);
 		spawnLocationIndex = m_spawnLocations.Find(spawnLocations[secondRandom].GetName());
+		if(spawnLocationIndex != -1)
+		{
+			m_spawnLocations.Remove(spawnLocationIndex);
+			spawnLocations.Remove(firstRandom);
+		}
+		else
+		{
+			spawnLocationIndex = m_exfilLocations.Find(name);
+			m_exfilLocations.Remove(spawnLocationIndex);
+			spawnLocations.Remove(firstRandom);
+		}
+		
+		
 		m_spawnLocations.Remove(spawnLocationIndex);
 		return spawnArray;
 	}

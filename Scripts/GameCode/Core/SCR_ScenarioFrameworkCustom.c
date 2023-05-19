@@ -101,6 +101,11 @@ modded class SCR_ScenarioFrameworkSlotBase
 	{
 		m_sObjectToSpawn = resourceName;
 	}
+	
+	void SetDebugVisibility(bool visible)
+	{
+		m_bShowDebugShapesDuringRuntime = visible;
+	}
 }
 
 modded class SCR_ScenarioFrameworkSlotKill
@@ -118,6 +123,31 @@ modded class SCR_ScenarioFrameworkSlotDestroy
 	{
 		m_sTaskTitle = taskTitle;
 		m_sTaskDescription = taskDescription;
+	}
+}
+
+modded class SCR_ScenarioFrameworkSlotPick
+{
+	void SetTitleAndDescriptions(string taskTitle, string taskDescription, string titleUpdate1, string descriptionUpdate1, string titleUpdate2, string descriptionUpdate2)
+	{
+		m_sTaskTitle = taskTitle;
+		m_sTaskDescription = taskDescription;
+		m_sTaskTitleUpdated1 = titleUpdate1;
+		m_sTaskDescriptionUpdated1 = descriptionUpdate1;
+		m_sTaskTitleUpdated2 = titleUpdate2;
+		m_sTaskDescriptionUpdated2 = descriptionUpdate2;
+	}
+}
+
+modded class SCR_ScenarioFrameworkSlotDelivery
+{
+	void AddAssociatedLayerTask(string layerTaskName)
+	{
+		if(!m_aAssociatedTaskLayers)
+		{
+			m_aAssociatedTaskLayers = new array<string>();
+		}
+		m_aAssociatedTaskLayers.Insert(layerTaskName);
 	}
 }
 

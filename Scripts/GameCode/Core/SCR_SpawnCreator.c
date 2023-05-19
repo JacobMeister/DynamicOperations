@@ -1,10 +1,11 @@
 class SCR_SpawnCreator
 {
 	private int m_iGeneratedSpawnLocationOffset = 300;
+	private ref RandomGenerator m_random;
 	
 	void SCR_SpawnCreator()
 	{
-		
+		m_random = new RandomGenerator();
 	}
 	
 	void ~SCR_SpawnCreator()
@@ -79,6 +80,9 @@ class SCR_SpawnCreator
 	{
 		string arsenalEntityId = "{BE99D77D1155B127}Prefabs/Systems/Arsenal/ArsenalBoxes/US/ArsenalBox_US.et";
 		string carEntityId = "{5168FEA3054D6D15}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB_MERDC.et";
+		string tentEntityId = "{3A6623EADBD13358}Prefabs/Structures/Military/Camps/TentSmallUS_01/TentSmallUS_01_Base.et";
+		string fireplaceEntityId = "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et";
+		string campFireEntityId = "{899360C930DA3EE3}Prefabs/Particles/Campfire_burning.et";
 		
 		Resource arsenalResource = SCR_SpawnSetup.GenerateAndValidateResource(arsenalEntityId);
 		Resource carResource = SCR_SpawnSetup.GenerateAndValidateResource(carEntityId);
@@ -88,30 +92,45 @@ class SCR_SpawnCreator
 			Print(("[SpawnPoint] Unable able to load resource for the entities: " + arsenalEntityId + " or " + carEntityId), LogLevel.ERROR);
 			return;
 		}
-		
+				
 		// move it some distance from the spawnpoint
 		vector arsenalSpawnPosition = spawnPosition;
-		arsenalSpawnPosition[0] = arsenalSpawnPosition[0] + 3;
+		arsenalSpawnPosition[0] = arsenalSpawnPosition[0] + 5;
 		vector carSpawnPosition = spawnPosition;
-		carSpawnPosition[0] = carSpawnPosition[0] - 3;
+		carSpawnPosition[0] = carSpawnPosition[0] - 5;
+		vector tentSpawnPosition = spawnPosition;
+		tentSpawnPosition[2] = tentSpawnPosition[2] + 5;
+		vector campFireSpawnPosition = spawnPosition;
+		campFireSpawnPosition[2] = campFireSpawnPosition[2] - 5;
 		
-		if(GetGame().GetWorld().QueryEntitiesBySphere(carSpawnPosition,1, null))
+		array<IEntity> spawnedEntities = new array<IEntity>();
+		
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(arsenalSpawnPosition, arsenalEntityId, "FurnishSpawnPoint/Arsenal"));
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(carSpawnPosition, carEntityId, "FurnishSpawnPoint/Car"));
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(tentSpawnPosition, tentEntityId, "FurnishSpawnPoint/Tent"));
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(campFireSpawnPosition, fireplaceEntityId, "FurnishSpawnPoint/Fireplace"));
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(campFireSpawnPosition, campFireEntityId, "FurnishSpawnPoint/Campfire"));
+		
+		foreach(IEntity entity : spawnedEntities)
 		{
-			carSpawnPosition[0] = carSpawnPosition[0] + 6;
-		}
-		
-		IEntity arsenal = IEntity.Cast(GetGame().SpawnEntityPrefab(arsenalResource, null, SCR_SpawnSetup.GenerateSpawnParameters(arsenalSpawnPosition)));
-		IEntity car = IEntity.Cast(GetGame().SpawnEntityPrefab(carResource, null, SCR_SpawnSetup.GenerateSpawnParameters(carSpawnPosition)));
-		
-		if (!arsenal || !car)
-		{
-			Print("[SpawnPoint] Unable to create entity!", LogLevel.ERROR);
-			return;
+			vector angleVector = {0, m_random.RandInt(0,360), 0};
+			entity.SetAngles(angleVector);
 		}
 	}
 	
+	// When entity is found this method will move it underground, thus clearing the area
+	bool HideEntities(IEntity ent)
+	{
+		vector origin = ent.GetOrigin();
+		origin[1] = 0;
+		ent.SetOrigin(origin);
+		return true;
+	}	
+	
 	void CreateSpawnPoint(vector spawnPosition)
 	{
+		// hide all entities with a radius of 6 meters
+		GetGame().GetWorld().QueryEntitiesBySphere(spawnPosition,6, HideEntities, null, EQueryEntitiesFlags.ALL);
 		SCR_SpawnPoint spawnPoint = SCR_SpawnPoint.Cast(SCR_SpawnSetup.SpawnEntity(spawnPosition, "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et", "CreateSpawnPoint"));
 		spawnPoint.ShowOnMap();
 	}

@@ -87,3 +87,8 @@ SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutMana
   }
  }
 }
+SCR_GarbageManager : "{9B883A7D8EBB282A}Prefabs/MP/Managers/GarbageManager.et" {
+ coords 4860.908 28.595 11849.496
+ CharacterLifetime 300
+ VehicleCollect 0
+}
