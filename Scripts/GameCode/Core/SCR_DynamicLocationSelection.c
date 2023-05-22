@@ -40,7 +40,6 @@ class SCR_DynamicLocationSelection
 	protected static const ref array<string> m_spawnLocations = 
 	{
 		// location in the wilderness where teams could plausibly infiltrate via car/boat/heli/foot
-		
 		"G_HuntsmansHeath", "L_LaRoue", "L_Scythe", "L_CragPoint", "L_Thollevast", "L_SimonsWood", 
 		"L_HelmansSip",	"L_BoulderCape", "L_RaccoonRock", "L_AnresBeacon", "L_JuniperPoint", "L_SeagullPoint", 
 		"L_SchoonersEnd", "L_MartinsWatch", "L_ChevalGinLodge",	"L_DriftwoodSands", "H_SixBells", "V_OldWood", 
@@ -94,13 +93,13 @@ class SCR_DynamicLocationSelection
 			// if for any possible reason this string is null, remove it from the list, and do it again
 			if(!possibleSecondaryMissionLocation)
 			{
-				possibleSecondaryMissionLocations.Remove(randomInt);
+				possibleSecondaryMissionLocations.RemoveOrdered(randomInt);
 				i--;
 				continue;
 			}
 			ref SCR_Location loc = GetLocation(possibleSecondaryMissionLocation);
 			missionLocationArray.Insert(loc);
-			possibleSecondaryMissionLocations.Remove(randomInt);
+			possibleSecondaryMissionLocations.RemoveOrdered(randomInt);
 		}
 				
 		foreach(SCR_Location location : missionLocationArray)
@@ -163,9 +162,12 @@ class SCR_DynamicLocationSelection
 	
 	array<IEntity> GetSpawnLocations(array<ref SCR_Location> missionLocations, bool includeExfil)
 	{
+		// This method attempts to get two spawn/exfil locations that are close enough to the AO to be helpful, 
+		// but not too close to cause patrols to instantly find and kill the spawning players
+		
 		array<IEntity> spawnArray = new array<IEntity>();
-		// get all locations within 1500 meters from all objectives
-		array<IEntity> possibleSpawnLocations = new array<IEntity>();
+		// get all locations within 2000 meters from all objectives
+		set<IEntity> possibleSpawnLocations = new set<IEntity>();
 		
 		foreach(SCR_Location missionLocation : missionLocations)
 		{
@@ -174,8 +176,7 @@ class SCR_DynamicLocationSelection
 				IEntity locationEntity = GetGame().GetWorld().FindEntityByName(spawnLocation);
 				int distance = GetDistanceBetweenEntities(missionLocation.GetEntity(), locationEntity);
 				
-				// filter out initial location
-				if(distance < 1500 && distance > 1)
+				if(distance < 2000 && distance > 1)
 				{
 					possibleSpawnLocations.Insert(locationEntity);
 				}
@@ -187,8 +188,7 @@ class SCR_DynamicLocationSelection
 					IEntity locationEntity = GetGame().GetWorld().FindEntityByName(spawnLocation);
 					int distance = GetDistanceBetweenEntities(missionLocation.GetEntity(), locationEntity);
 					
-					// filter out initial location
-					if(distance < 1500 && distance > 1)
+					if(distance < 2000 && distance > 1)
 					{
 						possibleSpawnLocations.Insert(locationEntity);
 					}
@@ -196,69 +196,73 @@ class SCR_DynamicLocationSelection
 			}
 		}
 		
-		array<IEntity> spawnLocations = new array<IEntity>();
+		Print("Start of iterations");
 		
-		// remove all locations within 1000 meters from all objectives
+		// remove all locations within 800 meters from all objectives
 		foreach(SCR_Location missionLocation : missionLocations)
 		{
-			foreach(IEntity spawnLocation : possibleSpawnLocations)
+			Print(missionLocation.GetName());
+			for(int i = possibleSpawnLocations.Count(); i >= 0; i--)
 			{
-				int distance = GetDistanceBetweenEntities(missionLocation.GetEntity(), spawnLocation);
+				Print(possibleSpawnLocations.Count());
+				int distance = GetDistanceBetweenEntities(missionLocation.GetEntity(), possibleSpawnLocations[i]);
 				
-				// filter out initial location
-				if(distance > 1000)
+				if(distance < 800)
 				{
-					spawnLocations.Insert(spawnLocation);
+					possibleSpawnLocations.Remove(i);
 				}
 			}
 		}
 		
+		Print(possibleSpawnLocations.Count());
+		
+		foreach(IEntity spawnLocation : possibleSpawnLocations)
+		{
+			Print(spawnLocation.GetName());
+		}
+		
 		// select 2 random Locations
 		// Select Simonswood as backup location for both spawn and extraction location if no locations were found
-		if(spawnLocations.Count() == 0)
+		if(possibleSpawnLocations.Count() == 0)
 		{
 			spawnArray.Insert(GetGame().GetWorld().FindEntityByName("L_SimonsWood"));
 			return spawnArray;
 		}
-		int firstRandom = m_random.RandInt(0, spawnLocations.Count());
-		spawnArray.Insert(spawnLocations[firstRandom]);
-		string name = spawnLocations[firstRandom].GetName();
+		int firstRandom = m_random.RandInt(0, possibleSpawnLocations.Count());
+		spawnArray.Insert(possibleSpawnLocations[firstRandom]);
+		string name = possibleSpawnLocations[firstRandom].GetName();
 		int spawnLocationIndex = m_spawnLocations.Find(name);
 		if(spawnLocationIndex != -1)
 		{
+			// remove it from original list so an exfil location cannot be created on a place where a spawn is located
 			m_spawnLocations.Remove(spawnLocationIndex);
-			spawnLocations.Remove(firstRandom);
+			possibleSpawnLocations.Remove(firstRandom);
 		}
 		else
 		{
 			spawnLocationIndex = m_exfilLocations.Find(name);
 			m_exfilLocations.Remove(spawnLocationIndex);
-			spawnLocations.Remove(firstRandom);
+			possibleSpawnLocations.Remove(firstRandom);
 		}
 		
-		
-		
-		if(spawnLocations.Count() == 0)
+		if(possibleSpawnLocations.Count() == 0)
 		{
 			return spawnArray;
 		}
-		int secondRandom = m_random.RandInt(0, spawnLocations.Count());
-		spawnArray.Insert(spawnLocations[secondRandom]);
-		spawnLocationIndex = m_spawnLocations.Find(spawnLocations[secondRandom].GetName());
+		int secondRandom = m_random.RandInt(0, possibleSpawnLocations.Count());
+		spawnArray.Insert(possibleSpawnLocations[secondRandom]);
+		spawnLocationIndex = m_spawnLocations.Find(possibleSpawnLocations[secondRandom].GetName());
 		if(spawnLocationIndex != -1)
 		{
 			m_spawnLocations.Remove(spawnLocationIndex);
-			spawnLocations.Remove(firstRandom);
+			possibleSpawnLocations.Remove(firstRandom);
 		}
 		else
 		{
 			spawnLocationIndex = m_exfilLocations.Find(name);
 			m_exfilLocations.Remove(spawnLocationIndex);
-			spawnLocations.Remove(firstRandom);
+			possibleSpawnLocations.Remove(firstRandom);
 		}
-		
-		
-		m_spawnLocations.Remove(spawnLocationIndex);
 		return spawnArray;
 	}
 	

@@ -88,4 +88,5 @@ SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/Gam
  "		m_dynamicOperations = new SCR_DynamicOperations();"\
  "		m_dynamicOperations.GenerateDynamicOperation();"\
  "	"
+ m_fAutoReloadTime 20
 }
