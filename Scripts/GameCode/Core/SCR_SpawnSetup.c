@@ -77,6 +77,30 @@ class SCR_SpawnSetup
 		return spawnedPrefab;
 	}
 	
+	static IEntity SpawnAndMoveTo(vector origin, string resourceName, string callerName)
+	{
+		Resource resource = SCR_SpawnSetup.GenerateAndValidateResource(resourceName);
+		if (!resource)
+		{
+			Print("[" + callerName + "] Unable to load resource for the entity: " + resourceName);
+			return null;
+		}
+		
+		vector movedOrigin = origin;
+		movedOrigin[1] = movedOrigin[1];
+		
+		IEntity spawnedPrefab =  IEntity.Cast(GetGame().SpawnEntityPrefab(resource, null,  SCR_SpawnSetup.GenerateSpawnParameters(movedOrigin, false)));
+		if (!spawnedPrefab)
+		{
+			Print("[" + callerName + "] Unable to create entity!" + resourceName);
+			return null;
+		}
+		
+		spawnedPrefab.SetOrigin(origin);
+		
+		return spawnedPrefab;
+	}
+	
 	static vector CreateZeroVector(vector origin)
 	{
 		int locationHeight = GetGame().GetWorld().GetSurfaceY(origin[0], origin[2]) + 3;

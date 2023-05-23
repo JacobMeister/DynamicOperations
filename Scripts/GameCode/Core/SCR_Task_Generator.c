@@ -106,12 +106,12 @@ class SCR_TaskGenerator
 		
 		SCR_ScenarioFrameworkSlotDestroy slotDestroyComponent = SCR_ScenarioFrameworkSlotDestroy.Cast(slotDestroy.FindComponent(SCR_ScenarioFrameworkSlotDestroy));
 		
-		IEntity stand = SCR_SpawnSetup.SpawnPrefabOnSlot(slot, "{979A564D476B5AAE}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_tall.et", "CreateDestroyRadarTask/SpawnEntity");				
+		IEntity stand = SCR_SpawnSetup.SpawnAndMoveTo(origin, "{979A564D476B5AAE}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_tall.et", "CreateDestroyRadarTask/SpawnEntity");
+		IEntity cables = SCR_SpawnSetup.SpawnAndMoveTo(origin, "{689E4B964E7FE377}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_cables_tall.et", "CreateDestroyRadarTask/SpawnEntity");
+		IEntity generator = SCR_SpawnSetup.SpawnAndMoveTo(origin, "{F15B99F6B06E7200}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_generator.et", "CreateDestroyRadarTask/SpawnEntity");				
 		vector topOfStandLocation = origin;
 		topOfStandLocation[1] = topOfStandLocation[1] + 4.8;
-		vector angleOfSlot = slot.GetAngles();
-		IEntity dish = SCR_SpawnSetup.SpawnEntity(topOfStandLocation, "{DED4DB7D08E6E0BE}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01.et", "CreateDestroyRadarTask/SpawnEntity", false);
-		dish.SetAngles(angleOfSlot);
+		IEntity dish = SCR_SpawnSetup.SpawnAndMoveTo(topOfStandLocation, "{DED4DB7D08E6E0BE}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01.et", "CreateDestroyRadarTask/SpawnEntity");
 		slotDestroyComponent.SetEntity(dish);
 		slotDestroyComponent.SetTitleAndDescription("Destroy Radar", "The soviets are setting up a radar system. Destroy it before it becomes operational.");
 		SpawnProtectionDetail("{96BAB56E6558788E}Prefabs/Groups/OPFOR/Group_USSR_Team_AT.et", origin);

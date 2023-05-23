@@ -41,7 +41,7 @@ class SCR_DynamicLocationSelection
 	{
 		// location in the wilderness where teams could plausibly infiltrate via car/boat/heli/foot
 		"G_HuntsmansHeath", "L_LaRoue", "L_Scythe", "L_CragPoint", "L_Thollevast", "L_SimonsWood", 
-		"L_HelmansSip",	"L_BoulderCape", "L_RaccoonRock", "L_AnresBeacon", "L_JuniperPoint", "L_SeagullPoint", 
+		"L_HelmansSip",	"L_BoulderCape", "L_RaccoonRock", "L_AnresBeacon", "L_JuniperPoint",
 		"L_SchoonersEnd", "L_MartinsWatch", "L_ChevalGinLodge",	"L_DriftwoodSands", "H_SixBells", "V_OldWood", 
 		"V_NewWood", "V_OreRidge", "V_TyroneRidge", "V_MortonValley", "V_WesternHeights", "H_LongHill", 
 		"H_ProwPeak", "H_Highstone", "H_SpruceHill", "H_CalvaryHill", "H_GallowsHill", "H_BonfireHill",
@@ -50,8 +50,8 @@ class SCR_DynamicLocationSelection
 
 	protected static const ref array<string> m_exfilLocations = 
 	{
-		// same as spawnlocation but these are too rugged to sensibly place a starting vehicle and arsnenal
-		"L_Coubet", "L_LaChalette", "L_CoalmansBrow", "L_RockweedCape", "L_StubwoodPoint", "H_LacansHead", "H_MarysMount"
+		// same as spawnlocation but these are too rugged to sensibly place a starting vehicle and arsenal
+		"L_Coubet", "L_LaChalette", "L_CoalmansBrow", "L_RockweedCape", "L_SeagullPoint", "L_StubwoodPoint", "H_LacansHead", "H_MarysMount"
 	};
 	
 	void SCR_DynamicLocationSelection()
@@ -196,12 +196,9 @@ class SCR_DynamicLocationSelection
 			}
 		}
 		
-		Print("Start of iterations");
-		
 		// remove all locations within 800 meters from all objectives
 		foreach(SCR_Location missionLocation : missionLocations)
 		{
-			Print(missionLocation.GetName());
 			for(int i = possibleSpawnLocations.Count(); i >= 0; i--)
 			{
 				Print(possibleSpawnLocations.Count());
@@ -212,13 +209,6 @@ class SCR_DynamicLocationSelection
 					possibleSpawnLocations.Remove(i);
 				}
 			}
-		}
-		
-		Print(possibleSpawnLocations.Count());
-		
-		foreach(IEntity spawnLocation : possibleSpawnLocations)
-		{
-			Print(spawnLocation.GetName());
 		}
 		
 		// select 2 random Locations
