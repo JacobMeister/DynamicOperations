@@ -193,3 +193,31 @@ modded class SCR_ScenarioFrameworkActionEndMission
 		m_eOverriddenGameOverType = type;
 	}
 }
+
+modded class SCR_TaskDeliver
+{
+	override void RegisterPlayer(int iPlayerID, IEntity playerEntity)
+	{
+		super.RegisterPlayer(iPlayerID, playerEntity);
+		
+		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+		if (gameMode)
+   			gameMode.GetOnPlayerKilled().Insert(OnPlayerKilled);
+	}
+	
+	void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
+	{
+		if (!player)
+		return;
+		
+		InventoryStorageManagerComponent inventoryComponent = InventoryStorageManagerComponent.Cast(player.FindComponent(InventoryStorageManagerComponent));
+		if (!inventoryComponent)
+			return;
+		
+		if(inventoryComponent.Contains(m_Asset))
+		{
+			UpdateTaskTitleAndDescription(5);
+			return;	
+		}
+	}	
+}

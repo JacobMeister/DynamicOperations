@@ -50,7 +50,7 @@ class SCR_TaskGenerator
 					CreateClearAreaTask(randomSlot, area);
 					break;
 				
-				case "Retrieve Intel":
+				case "Retrieve Item":
 					CreateRetrieveTask(location, randomSlot);
 					break;
 		
@@ -58,7 +58,7 @@ class SCR_TaskGenerator
 					CreateKillEnemyTask(randomSlot, area);
 					break;
 			}
-			
+			Print("Created Task: " + selectedMission + " in " + location.GetName());
 		}
 	}
 	
@@ -258,11 +258,11 @@ class SCR_TaskGenerator
 	
 	private void SetupValues()
 	{
-		m_missions.Insert("Destroy Vehicle");
-		m_missions.Insert("Destroy Radar");
+		//m_missions.Insert("Destroy Vehicle");
+		//m_missions.Insert("Destroy Radar");
 		m_missions.Insert("Kill Enemy");
 		//m_missions.Insert("Steal Vehicle");
-		m_missions.Insert("Retrieve Intel");
+		m_missions.Insert("Retrieve Item");
 		m_missions.Insert("Clear Area");
 		m_destroyVehicles.Insert("{1BABF6B33DA0AEB6}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_command.et","The soviets have set up a mobile command center. Destroy their command truck.");
 		m_destroyVehicles.Insert("{C012BB3488BEA0C2}Prefabs/Vehicles/Wheeled/BTR70/BTR70.et","A BTR70 has been spotten in the area of operations. Destroy the armored vehicle.");
@@ -273,11 +273,11 @@ class SCR_TaskGenerator
 		m_hitList.Insert("{976AC400219898FA}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Sharpshooter.et", "A sniper has been targeting US officers. Kill the enemy sniper");
 		array<string> intel = new array<string>();
 		intel.InsertAll({"{6D56FED1E55A8F84}Prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_01.et", "Intelligence", "An enemy officer has been seen near your location. See if you can find more information on their plans."});
-		m_itemList.Insert(intel);
+		//m_itemList.Insert(intel);
 		array<string> weapon = {"{B1482FB64E3D2D45}Prefabs/Weapons/Rifles/M16/Rifle_M16A2_4x20.et", "Weapon", "A spy has stolen a US weapon. Retrieve the weapon before it can be shipped back to the USSR to be reverse engineered."};
 		m_itemList.Insert(weapon);
 		array<string> backPack = {"{3DE0155EC9767B98}Prefabs/Items/Equipment/Backpacks/Backpack_Veshmeshok.et", "BackPack", "A soviet messenger has hidden secret intelligence inside his backpack liner. Take it back to base so it can be searched."};
-		m_itemList.Insert(backPack);
+		//m_itemList.Insert(backPack);
 		//m_itemList.Insert("{50A68300B537EDFA}Prefabs/Items/Food/ArmyCrackers_Soviet_01.et", {"Crackers", "The general is hungry for Soviet army crackers. Get them for him or you'll be demoted."});
 	}
 };

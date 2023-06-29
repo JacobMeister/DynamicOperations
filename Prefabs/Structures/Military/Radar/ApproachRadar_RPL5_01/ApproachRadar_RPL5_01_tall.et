@@ -1,0 +1,10 @@
+StaticModelEntity : "{6EAAEC6F1980C9A6}Prefabs/Structures/Military/Radar/ApproachRadar_base.et" {
+ ID "56ACD1C4DB91DB10"
+ components {
+  MeshObject "{56ACD1C4DC78C87B}" {
+   Object "{951BB68983165444}Assets/Structures/Military/Radar/ApproachRadar_01/ApproachRadar_RPL5_01_tall.xob"
+  }
+  RplComponent "{5D710E5E262C6D5B}" {
+  }
+ }
+}

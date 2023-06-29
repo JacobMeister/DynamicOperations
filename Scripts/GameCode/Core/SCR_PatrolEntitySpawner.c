@@ -16,9 +16,11 @@ class SCR_PatrolEntitySpawner
 	{
 		foreach(SCR_Location location: locations)
 		{
+			Print("Spawning patrols going from " + location.GetName() + " to:");
 			foreach(vector patrolLocation : location.GetPatrolLocations())
 			{
 				SpawnPatrol(location.GetEntity().GetOrigin(), patrolLocation);
+				Print("    " + patrolLocation);
 			}
 		}
 	}

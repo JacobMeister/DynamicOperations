@@ -1,0 +1,51 @@
+GenericEntity : "{5CF603986376EAA9}Prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_01_base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  AttachmentSlotComponent "{5D74AE7E2B178B65}" {
+   AttachmentSlot EquipmentStorageSlot asdf {
+    PivotID "barrel_chamber"
+    Prefab "{BD496EE1B40DC510}Prefabs/Weapons/Attachments/Optics/Optic_4x20/Optic_4x20.et"
+   }
+   AttachmentType AttachmentHandGuardM16 "{5D74AE7E30ADC689}" {
+   }
+  }
+  AttachmentSlotComponent "{5D74AE7E86FB919F}" {
+   AttachmentSlot InventoryStorageSlot t {
+    PivotID "barrel_muzzle"
+    Offset 0 0 -0.4805
+    Prefab "{FB1A7F5BC7D935E2}Prefabs/Weapons/Attachments/Handguards/Handguard_M16A2/Handguard_M16.et"
+   }
+   AttachmentType AttachmentOpticsCarryHandle "{5D74AE7E54B843D0}" {
+   }
+  }
+  AttachmentSlotComponent "{5D74AE7F84F35DBA}" {
+   AttachmentSlot EquipmentStorageSlot mag {
+    PivotID "slot_magazine"
+    Offset 0 -0.0386 -0.0264
+    Prefab "{11B9CC1FB4AEE740}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_Base.et"
+   }
+   AttachmentType MagazineWellStanag556 "{5D74AE7FB7E1072A}" {
+   }
+  }
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 0.25
+     SizeSetupStrategy Size
+     ItemDimensions 10 1 10
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5D74AE7B9C6F435E}" {
+      CameraOrbitAngles 0 0 0
+      CameraDistanceToItem 0.4
+      ItemRenderRotation 90 0 0
+     }
+    }
+   }
+  }
+  MeshObject "{5AB0B9C3C3E4A143}" {
+   Object "{C88615A558BF012C}Assets/Weapons/Rifles/M16A2/M16A2_body.xob"
+  }
+ }
+ coords 4843.083 28.605 11801.757
+}

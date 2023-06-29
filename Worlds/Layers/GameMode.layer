@@ -25,6 +25,9 @@ SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/Gam
     }
    }
   }
+  SCR_NametagConfigComponent "{571AA9E54FC9210D}" {
+   m_sConfigPath "{09F7AAA14A642683}Configs/NameTags/NametagFriendlies.conf"
+  }
   SCR_RespawnBriefingComponent "{5D4AB9FD394B382F}" {
    m_Info SCR_UIInfo "{5D50B649B2893D6B}" {
     Name "Complete the objectives"

@@ -54,6 +54,7 @@ class SCR_DynamicOperations
 		{
 			m_spawnCreator.CreateSpawnPoint(spawnLocation.GetOrigin());
 			m_spawnCreator.FurnishSpawnPoint(spawnLocation.GetOrigin());
+			Print("Created and furnished spawn point in " + spawnLocation.GetName());
 		}
 		
 		// set up new spawn locations when players near mission location
