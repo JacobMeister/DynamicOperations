@@ -12,7 +12,6 @@ class SCR_Location
 		m_sName = name;
 		m_entity = entity;
 		m_slotParentEntity = slotParentEntity;
-		
 		m_slotManager = new SCR_SlotManager();
 		m_slotManager.PopulateSlotsForLocation(slotParentEntity);
 	}

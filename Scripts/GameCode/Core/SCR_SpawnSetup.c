@@ -106,4 +106,15 @@ class SCR_SpawnSetup
 		int locationHeight = GetGame().GetWorld().GetSurfaceY(origin[0], origin[2]) + 3;
 		return {0,locationHeight,0};
 	}
+	
+	static void SnapToTerrain(IEntity entity)
+	{
+		float height = 0;
+		height = entity.GetLocalTransformAxis(3)[1];
+		BaseWorld world = entity.GetWorld();
+		vector transform[4];
+		entity.GetWorldTransform(transform);
+		SCR_TerrainHelper.SnapAndOrientToTerrain(transform, world, false, height);
+		entity.SetWorldTransform(transform);
+	}
 }

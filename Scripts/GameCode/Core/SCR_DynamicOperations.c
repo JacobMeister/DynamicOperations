@@ -1,6 +1,5 @@
 class SCR_DynamicOperations
 {
-	const int AMOUNT_OF_MISSIONS = 3;
 	protected ref RandomGenerator m_random;
 	protected ref SCR_DynamicLocationSelection m_locationSelection; // selects 3 locations where missions will take place
 	protected ref SCR_SpawnCreator m_spawnCreator; // will determine player spawn and exfil positions and create them in world

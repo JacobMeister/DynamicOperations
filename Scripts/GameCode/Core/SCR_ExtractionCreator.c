@@ -19,7 +19,7 @@ class SCR_ExtractionCreator
 		area.AddChild(counterLayerEntity, -1);
 		// create logicCounter entity
 		SCR_ScenarioFrameworkLogicCounter logicCounter = SCR_ScenarioFrameworkLogicCounter.Cast(SCR_SpawnSetup.SpawnEntity(vector.Zero, "{6C1792C71DCAFD55}Prefabs/ScenarioFramework/Components/LogicCounter.et", "CreateExtractionPoint", false, ETransformMode.LOCAL));
-		logicCounter.SetCountTo(SCR_DynamicOperations.AMOUNT_OF_MISSIONS -1);
+		logicCounter.SetCountTo(SCR_DynamicOperationsConstants.AMOUNT_OF_MISSIONS -1);
 		counterLayerEntity.AddChild(logicCounter, -1);
 		
 		// create scneario input action
@@ -67,7 +67,15 @@ class SCR_ExtractionCreator
 		slotExtraction.AddPlugin(trigger);
 		slotExtraction.SetTitleAndDescription("Extract", "Move to location to leave area of operations.");
 		
-		SCR_SpawnSetup.SpawnEntity(slotExtractionEntity.GetOrigin(), "{47D94E1193A88497}Prefabs/Vehicles/Wheeled/M151A2/M151A2_transport.et", "CreateExtractionPoint", true, ETransformMode.WORLD);
+		array<IEntity> spawnedEntities = new array<IEntity>();		
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(slotExtractionEntity.GetOrigin(), "{47D94E1193A88497}Prefabs/Vehicles/Wheeled/M151A2/M151A2_transport.et", "CreateExtractionPoint", true, ETransformMode.WORLD));
+		
+		foreach(IEntity entity : spawnedEntities)
+		{
+			vector angleVector = {0, m_random.RandInt(0,360), 0};
+			entity.SetAngles(angleVector);
+			SCR_SpawnSetup.SnapToTerrain(entity);
+		}
 				
 		return layerName;
 	}

@@ -115,6 +115,7 @@ class SCR_SpawnCreator
 		{
 			vector angleVector = {0, m_random.RandInt(0,360), 0};
 			entity.SetAngles(angleVector);
+			SCR_SpawnSetup.SnapToTerrain(entity);
 		}
 	}
 	
@@ -131,7 +132,6 @@ class SCR_SpawnCreator
 	{
 		// hide all entities with a radius of 6 meters
 		GetGame().GetWorld().QueryEntitiesBySphere(spawnPosition,6, HideEntities, null, EQueryEntitiesFlags.ALL);
-		SCR_SpawnPoint spawnPoint = SCR_SpawnPoint.Cast(SCR_SpawnSetup.SpawnEntity(spawnPosition, "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et", "CreateSpawnPoint"));
-		spawnPoint.ShowOnMap();
+		SCR_SpawnSetup.SpawnEntity(spawnPosition, "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et", "CreateSpawnPoint");
 	}
 };

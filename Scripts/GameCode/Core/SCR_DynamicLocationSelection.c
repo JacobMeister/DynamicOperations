@@ -3,57 +3,6 @@ class SCR_DynamicLocationSelection
 	protected ref RandomGenerator m_random;
 	protected ref map<string,string> m_locationEntities = new map<string,string>();
 	
-	protected static const ref array<string> m_possibleMissionLocations = 
-	{
-		// locations that have the standardized SCR_SiteSlotEntity elemements in the hierarchy
-		
-		// Towns
-		"C_Location_St_Pierre", "C_LocationChotain", "C_LocationDurras", "C_LocationEntreDeux", 
-		"C_LocationFigari", "C_LocationGravette", "C_LocationLamentin", "C_LocationLaruns", 
-		"C_LocationLeMoule", "C_LocationLevie", "C_LocationMeaux", "C_LocationMontignac", 
-		"C_LocationMorton", "C_LocationProvins", "C_LocationRegina", "C_LocationStPhilippe", 
-		"C_LocationTyrone", "C_LocationVernon", "C_LocationVilleneuve",
-		
-		// Villages
-		"S_Kermovan", "S_Lancre", 
-		
-		// Misc
-		"G_Airport", "G_Farm2", "G_Farm3", "G_Industrial", "G_Industrial3", "G_Landfill",
-		"G_Military", "G_Military3", "G_Military5", "G_Military6", "G_Quarry", "G_Sawmill", 
-		"G_MontfortCastle", "Barracks"
-	};
-
-	protected static const ref array<string> m_patrolLocations = 
-	{
-		// smaller locations that have some strategic value
-		
-		// Villages
-		"S_Benac", "S_Camurac", "S_Etoupe", "S_Gorey", "S_Lacourt", "S_Lavalette", 
-		"S_LesCreux", "S_Perelle", "S_Redon", "S_Richemont", "S_LeBosc", 
-
-		// Misc
-		"G_Briars", "G_Factory", "G_Farm", "G_Farm4", "G_Harbour", "G_Harbour2", "G_Harbour4", 
-		"G_Harbour5", "G_Harbour6", "G_Industrial2", "G_Military2", "G_Military4", "G_PennantsPass", 
-		"G_PetersPass", "L_RamtopMeadows", "G_Sawmill2"	
-	};
-	
-	protected static const ref array<string> m_spawnLocations = 
-	{
-		// location in the wilderness where teams could plausibly infiltrate via car/boat/heli/foot
-		"G_HuntsmansHeath", "L_LaRoue", "L_Scythe", "L_CragPoint", "L_Thollevast", "L_SimonsWood", 
-		"L_HelmansSip",	"L_BoulderCape", "L_RaccoonRock", "L_AnresBeacon", "L_JuniperPoint", 
-		"L_MartinsWatch",	"L_DriftwoodSands", "H_SixBells", "V_OldWood", 
-		"V_NewWood", "V_OreRidge", "V_TyroneRidge", "V_MortonValley", "V_WesternHeights", "H_LongHill", 
-		"H_ProwPeak", "H_Highstone", "H_SpruceHill", "H_CalvaryHill", "H_GallowsHill", "H_BonfireHill",
-		"H_HumboldtHill", "H_PickMountain", "H_HedgehogHill", "H_SwellMountain", "H_MargaretsMount"
-	};
-
-	protected static const ref array<string> m_exfilLocations = 
-	{
-		// same as spawnlocation but these are too rugged to sensibly place a starting vehicle and arsenal
-		"L_Coubet", "L_LaChalette", "L_CoalmansBrow", "L_RockweedCape", "L_SeagullPoint", "L_StubwoodPoint", "H_LacansHead", "H_MarysMount", "L_ChevalGinLodge", "L_SchoonersEnd"
-	};
-	
 	void SCR_DynamicLocationSelection()
 	{
 		m_random = new RandomGenerator();
@@ -68,13 +17,13 @@ class SCR_DynamicLocationSelection
 	void GetLocations(out array<ref SCR_Location> missionLocationArray)
 	{
 		// select random Location
-		int randomIndex = m_random.RandInt(0, m_possibleMissionLocations.Count());
-		string initialLocationName = m_possibleMissionLocations[randomIndex];
+		int randomIndex = m_random.RandInt(0, SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS.Count());
+		string initialLocationName = SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS[randomIndex];
 		IEntity initialLocationEntity = GetGame().GetWorld().FindEntityByName(initialLocationName);
 		array<string> possibleSecondaryMissionLocations = new array<string>();
 		
 		// filter all locations based on range to get other mission locations not too close or too far
-		foreach(string missionLocation : m_possibleMissionLocations)
+		foreach(string missionLocation : SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS)
 		{
 			IEntity locationEntity = GetGame().GetWorld().FindEntityByName(missionLocation);
 			int distance = GetDistanceBetweenEntities(initialLocationEntity, locationEntity);
@@ -86,7 +35,7 @@ class SCR_DynamicLocationSelection
 		}
 		
 		missionLocationArray.Insert(GetLocation(initialLocationName));
-		for (int i = 1; i < SCR_DynamicOperations.AMOUNT_OF_MISSIONS; i++)
+		for (int i = 1; i < SCR_DynamicOperationsConstants.AMOUNT_OF_MISSIONS; i++)
 		{
 			int randomInt = m_random.RandInt(0, possibleSecondaryMissionLocations.Count());
 			string possibleSecondaryMissionLocation = possibleSecondaryMissionLocations[randomInt];
@@ -133,7 +82,7 @@ class SCR_DynamicLocationSelection
 	// Get all patrol locations between 300 and 1500 meters of the location and add them to the location
 	protected void GetPatrolLocations(SCR_Location location)
 	{
-		foreach(string patrolLocation : m_patrolLocations)
+		foreach(string patrolLocation : SCR_DynamicOperationsConstants.PATROL_LOCATIONS)
 		{
 			IEntity patrolLocationEntity = GetGame().GetWorld().FindEntityByName(patrolLocation);
 			int distance = GetDistanceBetweenEntities(location.GetEntity(), patrolLocationEntity);
@@ -148,7 +97,7 @@ class SCR_DynamicLocationSelection
 	// Get all patrol locations between 2500 and 3500 meters of the location and add them to the location
 	protected void GetDeliveryLocations(SCR_Location location)
 	{
-		foreach(string patrolLocation : m_patrolLocations)
+		foreach(string patrolLocation : SCR_DynamicOperationsConstants.PATROL_LOCATIONS)
 		{
 			IEntity patrolLocationEntity = GetGame().GetWorld().FindEntityByName(patrolLocation);
 			int distance = GetDistanceBetweenEntities(location.GetEntity(), patrolLocationEntity);
@@ -171,7 +120,7 @@ class SCR_DynamicLocationSelection
 		
 		foreach(SCR_Location missionLocation : missionLocations)
 		{
-			foreach(string spawnLocation : m_spawnLocations)
+			foreach(string spawnLocation : SCR_DynamicOperationsConstants.SPAWN_LOCATIONS)
 			{
 				IEntity locationEntity = GetGame().GetWorld().FindEntityByName(spawnLocation);
 				int distance = GetDistanceBetweenEntities(missionLocation.GetEntity(), locationEntity);
@@ -183,7 +132,7 @@ class SCR_DynamicLocationSelection
 			}
 			if(includeExfil)
 			{
-				foreach(string spawnLocation : m_exfilLocations)
+				foreach(string spawnLocation : SCR_DynamicOperationsConstants.EXFIL_LOCATIONS)
 				{
 					IEntity locationEntity = GetGame().GetWorld().FindEntityByName(spawnLocation);
 					int distance = GetDistanceBetweenEntities(missionLocation.GetEntity(), locationEntity);
@@ -224,17 +173,17 @@ class SCR_DynamicLocationSelection
 		int firstRandom = m_random.RandInt(0, possibleSpawnLocations.Count());
 		spawnArray.Insert(possibleSpawnLocations[firstRandom]);
 		string name = possibleSpawnLocations[firstRandom].GetName();
-		int spawnLocationIndex = m_spawnLocations.Find(name);
+		int spawnLocationIndex = SCR_DynamicOperationsConstants.SPAWN_LOCATIONS.Find(name);
 		if(spawnLocationIndex != -1)
 		{
 			// remove it from original list so an exfil location cannot be created on a place where a spawn is located
-			m_spawnLocations.Remove(spawnLocationIndex);
+			SCR_DynamicOperationsConstants.SPAWN_LOCATIONS.Remove(spawnLocationIndex);
 			possibleSpawnLocations.Remove(firstRandom);
 		}
 		else
 		{
-			spawnLocationIndex = m_exfilLocations.Find(name);
-			m_exfilLocations.Remove(spawnLocationIndex);
+			spawnLocationIndex = SCR_DynamicOperationsConstants.EXFIL_LOCATIONS.Find(name);
+			SCR_DynamicOperationsConstants.EXFIL_LOCATIONS.Remove(spawnLocationIndex);
 			possibleSpawnLocations.Remove(firstRandom);
 		}
 		
@@ -244,16 +193,16 @@ class SCR_DynamicLocationSelection
 		}
 		int secondRandom = m_random.RandInt(0, possibleSpawnLocations.Count());
 		spawnArray.Insert(possibleSpawnLocations[secondRandom]);
-		spawnLocationIndex = m_spawnLocations.Find(possibleSpawnLocations[secondRandom].GetName());
+		spawnLocationIndex = SCR_DynamicOperationsConstants.SPAWN_LOCATIONS.Find(possibleSpawnLocations[secondRandom].GetName());
 		if(spawnLocationIndex != -1)
 		{
-			m_spawnLocations.Remove(spawnLocationIndex);
+			SCR_DynamicOperationsConstants.SPAWN_LOCATIONS.Remove(spawnLocationIndex);
 			possibleSpawnLocations.Remove(secondRandom);
 		}
 		else
 		{
-			spawnLocationIndex = m_exfilLocations.Find(name);
-			m_exfilLocations.Remove(spawnLocationIndex);
+			spawnLocationIndex = SCR_DynamicOperationsConstants.EXFIL_LOCATIONS.Find(name);
+			SCR_DynamicOperationsConstants.EXFIL_LOCATIONS.Remove(spawnLocationIndex);
 			possibleSpawnLocations.Remove(secondRandom);
 		}
 		return spawnArray;
