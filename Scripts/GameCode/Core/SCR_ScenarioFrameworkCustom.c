@@ -12,6 +12,11 @@ modded class SCR_ScenarioFrameworkActionSpawnObjects
 
 modded class SCR_ScenarioFrameworkPluginTrigger
 {	
+	void Setup()
+	{
+		m_sActivatedByThisFaction = "US";
+	}
+	
 	void SetRadius(float radius)
 	{
 		m_fAreaRadius = radius;
@@ -196,9 +201,9 @@ modded class SCR_ScenarioFrameworkActionEndMission
 
 modded class SCR_TaskDeliver
 {
-	override void RegisterPlayer(int iPlayerID, IEntity playerEntity)
+	override void RegisterPlayer(int iPlayerID)
 	{
-		super.RegisterPlayer(iPlayerID, playerEntity);
+		super.RegisterPlayer(iPlayerID);
 		
 		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
 		if (gameMode)

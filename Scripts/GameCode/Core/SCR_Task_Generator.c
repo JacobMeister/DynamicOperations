@@ -181,6 +181,7 @@ class SCR_TaskGenerator
 		
 		SCR_ScenarioFrameworkSlotClearArea slotClearAreaComponent = SCR_ScenarioFrameworkSlotClearArea.Cast(slotClearArea.FindComponent(SCR_ScenarioFrameworkSlotClearArea));
 		SCR_ScenarioFrameworkPluginTrigger pluginTrigger = new SCR_ScenarioFrameworkPluginTrigger();
+		pluginTrigger.Setup();
 		pluginTrigger.CreateCustomTriggerArray();
 		pluginTrigger.SetRadius(200);
 		slotClearAreaComponent.SetTitleAndDescription("Clear Area", "Enemy forces are gathering for an attack on US forces, catch them off guard and take them out.");
