@@ -1,7 +1,11 @@
 class SCR_ExtractionCreator
 {
+	
+	private ref RandomGenerator m_random;
+
 	void SCR_ExtractionCreator()
 	{
+		m_random = new RandomGenerator();
 	}
 	
 	void ~SCR_ExtractionCreator()
