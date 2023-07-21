@@ -89,12 +89,6 @@ class SCR_TaskGenerator
 	
 	void CreateDestroyRadarTask(SCR_SiteSlotEntity slot, IEntity area)
 	{
-		//int r = m_random.RandIntInclusive(0,1);
-		//if(r == 0)
-		//{
-		//	CreateDestroyAntennaTask(slot, area);
-		//	return;
-		//}
 		vector origin =  slot.GetOrigin();
 		
 		// Spawn ScenarioFramework area/layer/slot
@@ -182,7 +176,6 @@ class SCR_TaskGenerator
 		SCR_ScenarioFrameworkSlotClearArea slotClearAreaComponent = SCR_ScenarioFrameworkSlotClearArea.Cast(slotClearArea.FindComponent(SCR_ScenarioFrameworkSlotClearArea));
 		SCR_ScenarioFrameworkPluginTrigger pluginTrigger = new SCR_ScenarioFrameworkPluginTrigger();
 		pluginTrigger.Setup();
-		pluginTrigger.CreateCustomTriggerArray();
 		pluginTrigger.SetRadius(200);
 		slotClearAreaComponent.SetTitleAndDescription("Clear Area", "Enemy forces are gathering for an attack on US forces, catch them off guard and take them out.");
 		slotClearAreaComponent.AddPlugin(pluginTrigger);
@@ -235,12 +228,15 @@ class SCR_TaskGenerator
 		array<vector> deliveryLocations = location.GetDeliveryLocations();
 		vector deliveryLocation = deliveryLocations[m_random.RandInt(0, deliveryLocations.Count())];
 		
-		IEntity slotDeliveryEntity = SCR_SpawnSetup.SpawnEntity(deliveryLocation, "{4C2EF5C1E53FE511}Prefabs/ScenarioFramework/Components/SlotDelivery.et", "CreateRetrieveTask/SpawnSlotDelivery", true, ETransformMode.LOCAL);
+		IEntity slotDeliveryEntity = SCR_SpawnSetup.SpawnEntity(deliveryLocation, "{4C2EF5C1E53FE511}Prefabs/ScenarioFramework/Components/SlotDelivery.et", "CreateRetrieveTask/SpawnSlotDelivery");
 		SCR_ScenarioFrameworkSlotDelivery slotDelivery = SCR_ScenarioFrameworkSlotDelivery.Cast(slotDeliveryEntity.FindComponent(SCR_ScenarioFrameworkSlotDelivery));
-		slotDelivery.AddAssociatedLayerTask(layerTaskName);
-		slotDelivery.SetDebugVisibility(false);
-		area.AddChild(slotDeliveryEntity, -1);
-		
+		SCR_ScenarioFrameworkPluginTrigger pluginTrigger = new SCR_ScenarioFrameworkPluginTrigger();
+		pluginTrigger.Setup();
+		pluginTrigger.SetRadius(15);
+		pluginTrigger.SetTriggerOnce(false);
+		slotDelivery.AddPlugin(pluginTrigger);
+		slotDelivery.SetDebugVisibility(true);
+		layerTaskDeliver.AddChild(slotDeliveryEntity, -1, EAddChildFlags.RECALC_LOCAL_TRANSFORM);
 		// spawn delivery location friendlies + Vehicle
 		SCR_SpawnSetup.SpawnEntity(deliveryLocation, "{27E2E58E734A80EC}Prefabs/Vehicles/Wheeled/M998/M1025_MERDC.et", "CreateRetrieveTask/SpawnDeliveryVehicle");
 		SpawnProtectionDetail("{84E5BBAB25EA23E5}Prefabs/Groups/BLUFOR/Group_US_FireTeam.et", deliveryLocation);
@@ -259,22 +255,21 @@ class SCR_TaskGenerator
 	
 	private void SetupValues()
 	{
-		//m_missions.Insert("Destroy Vehicle");
-		//m_missions.Insert("Destroy Radar");
+		m_missions.Insert("Destroy Vehicle");
+		m_missions.Insert("Destroy Radar");
 		m_missions.Insert("Kill Enemy");
-		//m_missions.Insert("Steal Vehicle");
 		m_missions.Insert("Retrieve Item");
 		m_missions.Insert("Clear Area");
 		m_destroyVehicles.Insert("{1BABF6B33DA0AEB6}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_command.et","The soviets have set up a mobile command center. Destroy their command truck.");
 		m_destroyVehicles.Insert("{C012BB3488BEA0C2}Prefabs/Vehicles/Wheeled/BTR70/BTR70.et","A BTR70 has been spotten in the area of operations. Destroy the armored vehicle.");
 		m_destroyVehicles.Insert("{4C81D7ED8F8C0D87}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_tanker.et","Destroy the fuel truck to disrupt soviet logistics.");
-		m_destroyVehicles.Insert("{9DD4FD3527CB46C8}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_transport_covered_closed.et","Destroy the soviet supply truck to disrupt soviet logistics.");
+		m_destroyVehicles.Insert("{9DD4FD3527CB46C8}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_transport_covered_closed.et","Destroy the supply truck to disrupt soviet logistics.");
 		m_hitList.Insert("{26A9756790131354}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et", "A spy has been impersonating an american soldier to infiltrate US command. Kill the soviet spy.");
 		m_hitList.Insert("{5117311FB822FD1F}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_HVT.et", "An enemy officer has spotted near your location. Take out the officer.");
 		m_hitList.Insert("{976AC400219898FA}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Sharpshooter.et", "A sniper has been targeting US officers. Kill the enemy sniper");
 		array<string> intel = new array<string>();
 		intel.InsertAll({"{6D56FED1E55A8F84}Prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_01.et", "Intelligence", "An enemy officer has been seen near your location. See if you can find more information on their plans."});
-		//m_itemList.Insert(intel);
+		m_itemList.Insert(intel);
 		array<string> weapon = {"{B1482FB64E3D2D45}Prefabs/Weapons/Rifles/M16/Rifle_M16A2_4x20.et", "Weapon", "A spy has stolen a US weapon. Retrieve the weapon before it can be shipped back to the USSR to be reverse engineered."};
 		m_itemList.Insert(weapon);
 		array<string> backPack = {"{3DE0155EC9767B98}Prefabs/Items/Equipment/Backpacks/Backpack_Veshmeshok.et", "BackPack", "A soviet messenger has hidden secret intelligence inside his backpack liner. Take it back to base so it can be searched."};

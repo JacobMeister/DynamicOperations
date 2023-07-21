@@ -42,6 +42,7 @@ class SCR_ExtractionCreator
 			// add onactivate
 			// add spawnslotlayer to spawn object when triggered
 			SCR_ScenarioFrameworkActionSpawnObjects triggerAction = new SCR_ScenarioFrameworkActionSpawnObjects();
+			triggerAction.Setup();
 			triggerAction.AddObjectsToSpawn(layerName);
 			logicCounter.AddAction(triggerAction);
 		}
@@ -61,12 +62,13 @@ class SCR_ExtractionCreator
 		extractionLayerEntity.AddChild(slotExtractionEntity, -1);
 		SCR_ScenarioFrameworkSlotExtraction slotExtraction = SCR_ScenarioFrameworkSlotExtraction.Cast(slotExtractionEntity.FindComponent(SCR_ScenarioFrameworkSlotExtraction));
 		SCR_ScenarioFrameworkPluginTrigger trigger = new SCR_ScenarioFrameworkPluginTrigger();
-		trigger.CreateCustomTriggerArray();
+		trigger.Setup();
 		trigger.SetRadius(50);
-		trigger.SetTriggerOnce(true);
+		//trigger.SetTriggerOnce(true);
 		trigger.EnableCountDown(20);
 		SCR_ScenarioFrameworkActionEndMission endMissionAction = SCR_ScenarioFrameworkActionEndMission();
 		endMissionAction.SetGameOverType(EGameOverTypes.COMBATPATROL_VICTORY);
+		endMissionAction.Setup();
 		slotExtraction.AddAction(endMissionAction);
 		slotExtraction.AddPlugin(trigger);
 		slotExtraction.SetTitleAndDescription("Extract", "Move to location to leave area of operations.");

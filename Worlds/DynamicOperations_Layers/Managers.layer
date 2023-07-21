@@ -27,7 +27,7 @@ ScriptedChatEntity : "{536D80EB494DDC43}Prefabs/MP/Campaign/CampaignMPChatEntity
  coords 4851.34 28.605 11857.366
 }
 SCR_FactionManager FactionManager_USxUSSR1 : "{589540B35EBA8CDC}Prefabs/MP/Managers/Factions/FactionManager_USxUSSR.et" {
- coords 4852.833 28.605 11852.433
+ coords 4876.106 28.593 11858.174
  Factions {
   SCR_Faction "{56B2B46E9AF80999}" {
    m_bIsPlayable 0

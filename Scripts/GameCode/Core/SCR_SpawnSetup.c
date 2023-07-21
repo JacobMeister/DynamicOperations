@@ -114,7 +114,7 @@ class SCR_SpawnSetup
 		BaseWorld world = entity.GetWorld();
 		vector transform[4];
 		entity.GetWorldTransform(transform);
-		SCR_TerrainHelper.SnapAndOrientToTerrain(transform, world, false, height);
+		SCR_TerrainHelper.SnapAndOrientToTerrain(transform, world, false);
 		entity.SetWorldTransform(transform);
 	}
 }

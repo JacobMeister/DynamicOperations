@@ -63,13 +63,14 @@ class SCR_SpawnCreator
 								
 				// Add trigger to area to activate slotTrigger
 				SCR_ScenarioFrameworkPluginTrigger trigger = new SCR_ScenarioFrameworkPluginTrigger();
-				trigger.CreateCustomTriggerArray();
+				trigger.Setup();
 				trigger.SetRadius(Math.Sqrt(2) * m_iGeneratedSpawnLocationOffset / 2);
 				trigger.SetTriggerOnce(true);
 				slotTrigger.AddPlugin(trigger);
 				
 				// add spawnslotlayer to spawn object when triggered
 				SCR_ScenarioFrameworkActionSpawnObjects triggerAction = new SCR_ScenarioFrameworkActionSpawnObjects();
+				triggerAction.Setup();
 				triggerAction.AddObjectsToSpawn(layerName);
 				slotTrigger.AddAction(triggerAction);
 			}

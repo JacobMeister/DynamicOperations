@@ -2,7 +2,7 @@ modded class SCR_ScenarioFrameworkActionSpawnObjects
 {
 	void AddObjectsToSpawn(string objectName)
 	{
-		if(!m_aNameOfObjectsToSpawnOnActivation)
+		if (!m_aNameOfObjectsToSpawnOnActivation)
 		{
 			m_aNameOfObjectsToSpawnOnActivation = new array<string>();
 		}
@@ -11,27 +11,26 @@ modded class SCR_ScenarioFrameworkActionSpawnObjects
 }
 
 modded class SCR_ScenarioFrameworkPluginTrigger
-{	
+{
 	void Setup()
 	{
 		m_sActivatedByThisFaction = "US";
+		m_fUpdateRate = 1;
+		m_aCustomTriggerConditions = {};
+		m_aSpecificClassNames = {};
+		m_aSpecificPrefabNames = {};
 	}
-	
+
 	void SetRadius(float radius)
 	{
 		m_fAreaRadius = radius;
 	}
-	
+
 	void SetTriggerOnce(bool once)
 	{
 		m_bOnce = once;
 	}
-		
-	void CreateCustomTriggerArray()
-	{
-		m_aCustomTriggerConditions = new array<ref SCR_CustomTriggerConditions>();
-	}
-	
+
 	void EnableCountDown(float seconds)
 	{
 		m_bEnableAudio = true;
@@ -57,7 +56,7 @@ modded class SCR_ScenarioFrameworkSlotTrigger
 	{
 		m_aTriggerActions.Insert(action);
 	}
-	
+
 	void AddPlugin(SCR_ScenarioFrameworkPlugin plugin)
 	{
 		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
@@ -72,7 +71,7 @@ modded class SCR_ScenarioFrameworkSlotClearArea
 		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
 		m_aPlugins.Insert(plugin);
 	}
-	
+
 	void SetTitleAndDescription(string taskTitle, string taskDescription)
 	{
 		m_sTaskTitle = taskTitle;
@@ -87,13 +86,13 @@ modded class SCR_ScenarioFrameworkSlotExtraction
 		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
 		m_aPlugins.Insert(plugin);
 	}
-	
+
 	void SetTitleAndDescription(string taskTitle, string taskDescription)
 	{
 		m_sTaskTitle = taskTitle;
 		m_sTaskDescription = taskDescription;
 	}
-	
+
 	void AddAction(SCR_ScenarioFrameworkActionBase action)
 	{
 		m_aActionsOnFinished.Insert(action);
@@ -106,7 +105,7 @@ modded class SCR_ScenarioFrameworkSlotBase
 	{
 		m_sObjectToSpawn = resourceName;
 	}
-	
+
 	void SetDebugVisibility(bool visible)
 	{
 		m_bShowDebugShapesDuringRuntime = visible;
@@ -145,14 +144,20 @@ modded class SCR_ScenarioFrameworkSlotPick
 }
 
 modded class SCR_ScenarioFrameworkSlotDelivery
-{
+{	
 	void AddAssociatedLayerTask(string layerTaskName)
 	{
-		if(!m_aAssociatedTaskLayers)
+		if (!m_aAssociatedTaskLayers)
 		{
 			m_aAssociatedTaskLayers = new array<string>();
 		}
 		m_aAssociatedTaskLayers.Insert(layerTaskName);
+	}
+
+	void AddPlugin(SCR_ScenarioFrameworkPlugin plugin)
+	{
+		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
+		m_aPlugins.Insert(plugin);
 	}
 }
 
@@ -162,12 +167,12 @@ modded class SCR_ScenarioFrameworkLogicCounter
 	{
 		m_aInputs.Insert(input);
 	}
-	
+
 	void AddAction(SCR_ScenarioFrameworkActionBase action)
 	{
 		m_aActions.Insert(action);
 	}
-	
+
 	void SetCountTo(int countTo)
 	{
 		m_iCountTo = countTo;
@@ -192,6 +197,10 @@ modded class SCR_ScenarioFrameworkActionInputOnTaskEventIncreaseCounter
 
 modded class SCR_ScenarioFrameworkActionEndMission
 {
+	void Setup()
+	{
+		m_iMaxNumberOfActivations = 1;
+	}
 	void SetGameOverType(EGameOverTypes type)
 	{
 		m_bOverrideGameOverType = true;
@@ -201,28 +210,74 @@ modded class SCR_ScenarioFrameworkActionEndMission
 
 modded class SCR_TaskDeliver
 {
-	override void RegisterPlayer(int iPlayerID)
+	override void RegisterPlayer(int iPlayerID, IEntity playerEntity)
 	{
-		super.RegisterPlayer(iPlayerID);
-		
+		super.RegisterPlayer(iPlayerID, playerEntity);
+
 		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
 		if (gameMode)
-   			gameMode.GetOnPlayerKilled().Insert(OnPlayerKilled);
+			gameMode.GetOnPlayerKilled().Insert(OnPlayerKilled);
 	}
-	
+
 	void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
 	{
 		if (!player)
 		return;
-		
+
 		InventoryStorageManagerComponent inventoryComponent = InventoryStorageManagerComponent.Cast(player.FindComponent(InventoryStorageManagerComponent));
 		if (!inventoryComponent)
 			return;
-		
-		if(inventoryComponent.Contains(m_Asset))
+
+		if (inventoryComponent.Contains(m_Asset))
 		{
 			UpdateTaskTitleAndDescription(5);
-			return;	
+			return;
 		}
-	}	
+	}
+}
+
+modded class SCR_ScenarioFrameworkActionSpawnObjects
+{
+	void Setup()
+	{
+		m_iMaxNumberOfActivations = 1;
+	}
+}
+
+modded class SCR_CharacterTriggerEntity
+{
+	//------------------------------------------------------------------------------------------------
+	//! Returns number of players from the selected faction that are inside this trigger
+	override int GetPlayersCountByFactionInsideTrigger(Faction faction)
+	{
+		int iCnt = 0;
+		m_aPlayersInside.Clear();
+		FactionAffiliationComponent factionAffiliationComponent;
+		GetEntitiesInside(m_aEntitiesInside);
+		foreach (IEntity entity : m_aEntitiesInside)
+		{
+			if (!entity)
+				continue;
+			
+			if (!faction)
+			{
+				iCnt++;			//Faction not set == ANY faction
+				m_aPlayersInside.Insert(entity);
+			}
+			else
+			{
+				factionAffiliationComponent = FactionAffiliationComponent.Cast(entity.FindComponent(FactionAffiliationComponent));
+				if (!factionAffiliationComponent)
+					continue;
+
+				if (factionAffiliationComponent.GetAffiliatedFaction() != faction)
+					continue;
+				
+				iCnt++;
+				m_aPlayersInside.Insert(entity);
+			}
+		}
+
+		return iCnt;
+	}
 }
