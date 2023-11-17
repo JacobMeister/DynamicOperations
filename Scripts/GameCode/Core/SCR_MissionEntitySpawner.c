@@ -12,8 +12,8 @@ class SCR_MissionEntitySpawner
 	
 	protected ref array<string> m_smallSlotPrefabs = 
 	{
-		"{7C20041DA3207190}Prefabs/Compositions/Slotted/SlotFlatSmall/AmmoStorage_S_USSR_01.et",
-		"{68ED84218EA1BDC2}Prefabs/Compositions/Slotted/SlotFlatSmall/Antenna_S_USSR_01.et",
+		"{7C20041DA3207191}Prefabs/Compositions/Slotted/SlotFlatSmall/AmmoStorage_S_USSR_01.et",
+		"{68ED84218EA1BDC3}Prefabs/Compositions/Slotted/SlotFlatSmall/Antenna_S_USSR_01.et",
 		"{7492BAA88AFCEDCD}Prefabs/Compositions/Slotted/SlotFlatSmall/Bunker_S_USSR_01.et",
 		"{E7C062E5BE16FA11}Prefabs/Compositions/Slotted/SlotFlatSmall/FuelStorage_S_USSR_01.et",
 		"{FD952CFF9CAD3F2A}Prefabs/Compositions/Slotted/SlotFlatSmall/LivingArea_S_USSR_01.et",
@@ -22,6 +22,10 @@ class SCR_MissionEntitySpawner
 		"{4093AE33DCEFAD67}Prefabs/Compositions/Slotted/SlotFlatSmall/SupplyStorage_S_USSR_01.et",
 		"{A047DA062D3DA650}Prefabs/Compositions/Slotted/SlotFlatSmall/VehicleMaintenance_S_USSR_01.et"
 	};
+	
+	protected const string smallRoadCheckpoint = "{9483333BFD9E2D0F}Prefabs/Compositions/Slotted/SlotRoadSmall/Checkpoint_S_USSR_01.et";
+	protected const string mediumRoadCheckPoint = "{7C85836D444E3797}Prefabs/Compositions/Slotted/SlotRoadMedium/Checkpoint_M_USSR_01.et";
+	protected const string largeRoadCheckPoint = "{9F9924B626C5FA2C}Prefabs/Compositions/Slotted/SlotRoadLarge/Checkpoint_L_USSR_01.et";
 	
 	void SCR_MissionEntitySpawner()
 	{
@@ -67,19 +71,19 @@ class SCR_MissionEntitySpawner
 			switch (prefabName)
 			{
 				case "{66265A506DF1FE2B}PrefabsEditable/Slots/Road/E_SlotRoadSmall.et":
-					resourceName = "{9483333BFD9E2D0E}Prefabs/Compositions/Slotted/SlotRoadSmall/Checkpoint_S_USSR_01.et";
+					resourceName = smallRoadCheckpoint;
 					break;
 		
 				case "{F4066B8425BEC47C}PrefabsEditable/Slots/Road/E_SlotRoadMedium.et":
-					resourceName = "{089470408DAADC20}Prefabs/Compositions/Slotted/SlotRoadMedium/Checkpoint_M_USSR_01.et";
+					resourceName = mediumRoadCheckPoint;
 					break;
 				
 				case "{881CE7B0098504C2}PrefabsEditable/Slots/Road/E_SlotRoadLarge.et":
-					resourceName = "{9F9924B626C5FA2B}Prefabs/Compositions/Slotted/SlotRoadLarge/Checkpoint_L_USSR_01.et";
+					resourceName = largeRoadCheckPoint;
 					break;
 			
 				default:
-					resourceName = "{9483333BFD9E2D0E}Prefabs/Compositions/Slotted/SlotRoadSmall/Checkpoint_S_USSR_01.et";
+					resourceName = smallRoadCheckpoint;
 					break;
 			}
 		
@@ -152,13 +156,13 @@ class SCR_MissionEntitySpawner
 			switch (soldierCount)
 			{
 				case 2:
-					m_aiSpawner.SpawnAIWithoutWaypoint("{D815658156080328}Prefabs/Groups/OPFOR/Group_USSR_MedicalSection.et", slot.GetOrigin());
+					m_aiSpawner.SpawnAIWithoutWaypoint(SCR_Prefab_Constants.ussr_medicalSection, slot.GetOrigin());
 					break;
 				case 3:
-					m_aiSpawner.SpawnAIWithoutWaypoint("{657590C1EC9E27D3}Prefabs/Groups/OPFOR/Group_USSR_LightFireTeam.et", slot.GetOrigin());
+					m_aiSpawner.SpawnAIWithoutWaypoint(SCR_Prefab_Constants.ussr_lightFireTeam, slot.GetOrigin());
 					break;
 				case 4:
-					m_aiSpawner.SpawnAIWithoutWaypoint("{30ED11AA4F0D41E5}Prefabs/Groups/OPFOR/Group_USSR_FireGroup.et", slot.GetOrigin());
+					m_aiSpawner.SpawnAIWithoutWaypoint(SCR_Prefab_Constants.ussr_fireGroup, slot.GetOrigin());
 					break;
 				default:
 					break;

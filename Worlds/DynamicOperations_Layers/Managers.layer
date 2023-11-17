@@ -16,6 +16,15 @@ RadioManagerEntity : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
 ScriptedChatEntity : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
  coords 4871.512 28.594 11852.44
 }
+SCR_BaseTaskManager : "{1AC69CD7907FB4F8}Prefabs/ScenarioFramework/Tasks/TaskManager.et" {
+ coords 4870.79 28.594 11855.553
+}
 SCR_LoadoutManager : "{97EF4C1A41F63DDB}Prefabs/MP/Managers/Loadouts/LoadoutManager_USxUSSR.et" {
  coords 4867.709 28.594 11853.321
+ m_aPlayerLoadouts {
+  SCR_PlayerArsenalLoadout "{5EE2C12808B2574A}" {
+   m_sLoadoutName "Arsenal"
+   m_sAffiliatedFaction "US"
+  }
+ }
 }

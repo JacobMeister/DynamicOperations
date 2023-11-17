@@ -110,6 +110,11 @@ modded class SCR_ScenarioFrameworkSlotBase
 	{
 		m_bShowDebugShapesDuringRuntime = visible;
 	}
+	
+	void UseExistingAsset(bool useExistingAsset)
+	{
+		m_bUseExistingWorldAsset = useExistingAsset;
+	}
 }
 
 modded class SCR_ScenarioFrameworkSlotKill
@@ -119,6 +124,54 @@ modded class SCR_ScenarioFrameworkSlotKill
 		m_sTaskTitle = taskTitle;
 		m_sTaskDescription = taskDescription;
 	}
+	
+	override void Init(SCR_ScenarioFrameworkArea area = null, SCR_ScenarioFrameworkEActivationType activation = SCR_ScenarioFrameworkEActivationType.SAME_AS_PARENT)
+	{
+		if (m_bInitiated)
+			return;
+		
+		if (!m_bDynamicallyDespawned && activation != m_eActivationType)
+			return;
+		
+		bool tempTerminated = m_bIsTerminated;
+		m_bIsTerminated = false;
+		
+		if (m_bIsTerminated)
+			return;
+						
+		// Handles inheritance of faction settings from parents
+		if (m_sFactionKey.IsEmpty() && m_ParentLayer && !m_ParentLayer.GetFactionKey().IsEmpty())
+			SetFactionKey(m_ParentLayer.GetFactionKey());
+		
+		
+		GetOnAllChildrenSpawned().Insert(AfterAllChildrenSpawned);
+		
+		
+		if (!m_Entity)
+		{
+			InvokeAllChildrenSpawned();
+			return;
+		}
+		
+		if (!m_sID.IsEmpty())
+			m_Entity.SetName(m_sID);	
+		
+		ScriptedDamageManagerComponent objectDmgManager = ScriptedDamageManagerComponent.Cast(m_Entity.FindComponent(ScriptedDamageManagerComponent));
+		if (objectDmgManager)
+			objectDmgManager.GetOnDamageStateChanged().Insert(OnObjectDamage);
+		
+		if (Vehicle.Cast(m_Entity))
+		{
+			EventHandlerManagerComponent ehManager = EventHandlerManagerComponent.Cast(m_Entity.FindComponent(EventHandlerManagerComponent));
+			if (ehManager)
+				ehManager.RegisterScriptHandler("OnCompartmentEntered", this, OnCompartmentEntered, false, true);
+		}
+			
+		StoreTaskSubjectToParentTaskLayer();
+		m_bIsTerminated = tempTerminated;
+		
+		InvokeAllChildrenSpawned();
+	}
 }
 
 modded class SCR_ScenarioFrameworkSlotDestroy
@@ -127,6 +180,54 @@ modded class SCR_ScenarioFrameworkSlotDestroy
 	{
 		m_sTaskTitle = taskTitle;
 		m_sTaskDescription = taskDescription;
+	}
+	
+	override void Init(SCR_ScenarioFrameworkArea area = null, SCR_ScenarioFrameworkEActivationType activation = SCR_ScenarioFrameworkEActivationType.SAME_AS_PARENT)
+	{
+		if (m_bInitiated)
+			return;
+		
+		if (!m_bDynamicallyDespawned && activation != m_eActivationType)
+			return;
+		
+		bool tempTerminated = m_bIsTerminated;
+		m_bIsTerminated = false;
+		
+		if (m_bIsTerminated)
+			return;
+						
+		// Handles inheritance of faction settings from parents
+		if (m_sFactionKey.IsEmpty() && m_ParentLayer && !m_ParentLayer.GetFactionKey().IsEmpty())
+			SetFactionKey(m_ParentLayer.GetFactionKey());
+		
+		
+		GetOnAllChildrenSpawned().Insert(AfterAllChildrenSpawned);
+		
+		
+		if (!m_Entity)
+		{
+			InvokeAllChildrenSpawned();
+			return;
+		}
+		
+		if (!m_sID.IsEmpty())
+			m_Entity.SetName(m_sID);	
+		
+		ScriptedDamageManagerComponent objectDmgManager = ScriptedDamageManagerComponent.Cast(m_Entity.FindComponent(ScriptedDamageManagerComponent));
+		if (objectDmgManager)
+			objectDmgManager.GetOnDamageStateChanged().Insert(OnObjectDamage);
+		
+		if (Vehicle.Cast(m_Entity))
+		{
+			EventHandlerManagerComponent ehManager = EventHandlerManagerComponent.Cast(m_Entity.FindComponent(EventHandlerManagerComponent));
+			if (ehManager)
+				ehManager.RegisterScriptHandler("OnCompartmentEntered", this, OnCompartmentEntered, false, true);
+		}
+			
+		StoreTaskSubjectToParentTaskLayer();
+		m_bIsTerminated = tempTerminated;
+		
+		InvokeAllChildrenSpawned();
 	}
 }
 
@@ -158,6 +259,11 @@ modded class SCR_ScenarioFrameworkSlotDelivery
 	{
 		m_aPlugins = new array<ref SCR_ScenarioFrameworkPlugin>();
 		m_aPlugins.Insert(plugin);
+	}
+	
+	void DisableDebug()
+	{
+		m_bShowDebugShapesDuringRuntime = false;
 	}
 }
 

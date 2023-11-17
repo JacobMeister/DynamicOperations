@@ -1,5 +1,11 @@
 SCR_BaseGameMode GameModeSF1 : "{ECEEDB2D3737204B}Prefabs/ScenarioFramework/GameModeSF.et" {
  components {
+  SCR_ArsenalComponent "{5EE2C12AD3AEF4C8}" {
+  }
+  SCR_ArsenalDisplayComponent "{5EE2C128FC3CAE31}" {
+  }
+  SCR_CompositionSlotManagerComponent "{5EE2A79EC99E3C2E}" {
+  }
   SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
    m_SpawnLogic SCR_MenuSpawnLogic "{5EE299F0B4B0990F}" {
     m_sForcedFaction "US"
@@ -11,6 +17,17 @@ SCR_BaseGameMode GameModeSF1 : "{ECEEDB2D3737204B}Prefabs/ScenarioFramework/Game
   }
  }
  coords 4876.855 28.593 11855.653
- userScript "	// code here"\
- ""
+ userScript "	private ref SCR_DynamicOperations m_dynamicOperations;"\
+ "	"\
+ "	SCR_DynamicOperations GetDynamicOparations()"\
+ "	{"\
+ "		return m_dynamicOperations;"\
+ "	}"\
+ ""\
+ "	override void OnGameStart()"\
+ "	{"\
+ "		super.OnGameStart();"\
+ "		m_dynamicOperations = new SCR_DynamicOperations();"\
+ "		m_dynamicOperations.GenerateDynamicOperation();"\
+ "	}"
 }

@@ -16,13 +16,13 @@ class SCR_ExtractionCreator
 	void CreateExtractionPoints(array<IEntity> exfilLocations)
 	{
 		// create area
-		IEntity area = SCR_SpawnSetup.SpawnEntity(vector.Zero, "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Area.et", "CreateExtractionPoint", false);
+		IEntity area = SCR_SpawnSetup.SpawnEntity(vector.Zero, SCR_Prefab_Constants.area, "CreateExtractionPoint", false);
 		
 		// create layer with counter
-		IEntity counterLayerEntity = SCR_SpawnSetup.SpawnEntity(vector.Zero, "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et", "CreateExtractionPoint", false, ETransformMode.LOCAL);
+		IEntity counterLayerEntity = SCR_SpawnSetup.SpawnEntity(vector.Zero, SCR_Prefab_Constants.layer, "CreateExtractionPoint", false, ETransformMode.LOCAL);
 		area.AddChild(counterLayerEntity, -1);
 		// create logicCounter entity
-		SCR_ScenarioFrameworkLogicCounter logicCounter = SCR_ScenarioFrameworkLogicCounter.Cast(SCR_SpawnSetup.SpawnEntity(vector.Zero, "{6C1792C71DCAFD55}Prefabs/ScenarioFramework/Components/LogicCounter.et", "CreateExtractionPoint", false, ETransformMode.LOCAL));
+		SCR_ScenarioFrameworkLogicCounter logicCounter = SCR_ScenarioFrameworkLogicCounter.Cast(SCR_SpawnSetup.SpawnEntity(vector.Zero, SCR_Prefab_Constants.logicCounter, "CreateExtractionPoint", false, ETransformMode.LOCAL));
 		logicCounter.SetCountTo(SCR_DynamicOperationsConstants.AMOUNT_OF_MISSIONS -1);
 		counterLayerEntity.AddChild(logicCounter, -1);
 		
@@ -51,14 +51,14 @@ class SCR_ExtractionCreator
 	string CreateExtractionLayers(IEntity area, vector v, int i)
 	{
 		// create layer with extraction slot
-		IEntity extractionLayerEntity = SCR_SpawnSetup.SpawnEntity(v, "{246BEC080F393398}Prefabs/ScenarioFramework/Components/LayerTaskMove.et", "CreateExtractionPoint", true, ETransformMode.LOCAL);
+		IEntity extractionLayerEntity = SCR_SpawnSetup.SpawnEntity(v, SCR_Prefab_Constants.layerTaskMove, "CreateExtractionPoint", true, ETransformMode.LOCAL);
 		SCR_ScenarioFrameworkLayerTask layer = SCR_ScenarioFrameworkLayerTask.Cast(extractionLayerEntity.FindComponent(SCR_ScenarioFrameworkLayerTask));
 		layer.SetActivationType(SCR_ScenarioFrameworkEActivationType.ON_TRIGGER_ACTIVATION);
 		string layerName = "ExtractionLayer" + i;
 		extractionLayerEntity.SetName(layerName);
 		area.AddChild(extractionLayerEntity, -1);
 		
-		IEntity slotExtractionEntity =  SCR_SpawnSetup.SpawnEntity(vector.Zero, "{A44004A770A5D8BE}Prefabs/ScenarioFramework/Components/SlotMoveTo.et", "CreateExtractionPoint", false, ETransformMode.LOCAL);
+		IEntity slotExtractionEntity =  SCR_SpawnSetup.SpawnEntity(vector.Zero, SCR_Prefab_Constants.slotMoveTo, "CreateExtractionPoint", false, ETransformMode.LOCAL);
 		extractionLayerEntity.AddChild(slotExtractionEntity, -1);
 		SCR_ScenarioFrameworkSlotExtraction slotExtraction = SCR_ScenarioFrameworkSlotExtraction.Cast(slotExtractionEntity.FindComponent(SCR_ScenarioFrameworkSlotExtraction));
 		SCR_ScenarioFrameworkPluginTrigger trigger = new SCR_ScenarioFrameworkPluginTrigger();
@@ -74,7 +74,7 @@ class SCR_ExtractionCreator
 		slotExtraction.SetTitleAndDescription("Extract", "Move to location to leave area of operations.");
 		
 		array<IEntity> spawnedEntities = new array<IEntity>();		
-		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(slotExtractionEntity.GetOrigin(), "{47D94E1193A88497}Prefabs/Vehicles/Wheeled/M151A2/M151A2_transport.et", "CreateExtractionPoint", true, ETransformMode.WORLD));
+		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(slotExtractionEntity.GetOrigin(), SCR_Prefab_Constants.jeep_covered, "CreateExtractionPoint", true, ETransformMode.WORLD));
 		
 		foreach(IEntity entity : spawnedEntities)
 		{
