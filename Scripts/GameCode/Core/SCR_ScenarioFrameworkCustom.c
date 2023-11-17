@@ -18,7 +18,7 @@ modded class SCR_ScenarioFrameworkPluginTrigger
 		m_fUpdateRate = 1;
 		m_aCustomTriggerConditions = {};
 		m_aSpecificClassNames = {};
-		m_aSpecificPrefabNames = {};
+		m_aPrefabFilter = {};
 	}
 
 	void SetRadius(float radius)
@@ -219,7 +219,7 @@ modded class SCR_TaskDeliver
 			gameMode.GetOnPlayerKilled().Insert(OnPlayerKilled);
 	}
 
-	void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
+	void OnPlayerKilled(int playerId, IEntity player, IEntity killerEntity, notnull Instigator killer)
 	{
 		if (!player)
 		return;
