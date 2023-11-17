@@ -1,130 +1,16 @@
-SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/GameMode_Plain.et" {
+SCR_BaseGameMode GameModeSF1 : "{ECEEDB2D3737204B}Prefabs/ScenarioFramework/GameModeSF.et" {
  components {
-  SCR_ArsenalManagerComponent "{5D50B65079A0CB7F}" {
-  }
-  SCR_CompositionSlotManagerComponent "{5D52C0F17E19924E}" {
-  }
-  SCR_DebriefingScreenComponent "{5DE8C02DAE2A6BA7}" {
-   Enabled 0
-   m_sHeaderTitle "Debrief"
-  }
-  SCR_DebriefingScreenComponent "{5DEA89519B8A4AC5}" {
-   Enabled 0
-   m_sHeaderTitle "Mission completed"
-   m_sHeaderSubtitle "Mission subtitle"
-   m_BaseLayout SCR_DebriefingScreenUnevenFourTiles "{5DEA89519E94FDB2}" {
-    m_TopLeftTile SCR_WelcomeScreenDynamicObjectivesContent "{5DEA8951A458F020}" {
-     m_sTitleText "Objectives"
-     m_aFactions {
-      SCR_WelcomeScreenDynamicTaskFaction "{5DEA8951ABBFB676}" {
-       m_sFactionKey "US"
-      }
-     }
-    }
-    m_TopRightTile SCR_DebriefingScreenStatisticsContent "{5DEA8951C7F85494}" {
-     m_aStatistics {
-      SCR_DebriefingScreenStatisticShotsFired "{5DEA8951CB83D228}" {
-      }
-      SCR_DebriefingScreenStatisticKills "{5DEA8951CC8FBAD1}" {
-      }
-      SCR_DebriefingScreenStatisticDeaths "{5DEA8951D8B6DF99}" {
-      }
-      SCR_DebriefingScreenStatisticDistanceDriven "{5DEA8951CE3837F4}" {
-      }
-      SCR_DebriefingScreenStatisticDistanceWalked "{5DEA8951D0A604B2}" {
-      }
-     }
-    }
-    m_BottomLeftTile SCR_DebriefingScreenSummaryContent "{5DEA8951DCD1CEB1}" {
-     m_sTitleText "Good job"
-     m_sSubtitleText "You did it"
-     m_sDescriptionText "this is a lot of text"
-    }
-    m_BottomRightTile SCR_DebriefingScreenBigImageContent "{5DEA8951E57EB520}" {
-     m_sContentImage "{D1F62C0EED2BB316}Common/Textures/Camouflage/T_CamoBrush_01_BC.edds"
-    }
-   }
-  }
-  SCR_GameModeCombatOpsManager "{5D55229E4763605A}" {
-  }
-  SCR_GameModeSFManager "{5D54E0AEB5A18237}" {
-   Enabled 0
-  }
-  SCR_GameOverScreenManagerComponent "{56DEC646298AD219}" {
-   m_GameOverScreenConfig SCR_GameOverScreenConfig "{56DEC6462FFDD82D}" {
-    m_aGameOverScreens {
-     SCR_FactionVictoryGameOverScreenInfo "{568EB6DFEF507060}" {
-      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{568EB6DFF87D9C84}" {
-       m_sTitle "Mission Complete"
-       m_sSubtitle "All soldiers extracted!"
-      }
-     }
-    }
-   }
-  }
-  SCR_NametagConfigComponent "{571AA9E54FC9210D}" {
-   m_sConfigPath "{09F7AAA14A642683}Configs/NameTags/NametagFriendlies.conf"
-  }
   SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
-   m_SpawnLogic SCR_MenuSpawnLogic "{5D36888CC966608A}" {
+   m_SpawnLogic SCR_MenuSpawnLogic "{5EE299F0B4B0990F}" {
+    m_sForcedFaction "US"
    }
   }
-  SCR_RespawnTimerComponent "{5D4AB9F278954146}" {
-   m_fRespawnTime 5
-  }
-  SCR_TimeAndWeatherHandlerComponent "{5D5505642458FA80}" {
-   m_iStartingHours 12
-   m_bRandomStartingDaytime 1
-   m_bRandomStartingWeather 1
-  }
-  SCR_WelcomeScreenComponent "{5DE8C02AD4B02E52}" {
-   m_sHeaderTitle "Dynamic Operations - Everon"
-   m_sHeaderSubtitle "Complete the objectives and extract"
-   m_BaseLayout SCR_WelcomeScreenThreeHorizontalColumns "{5DE8C029BABB2B6F}" {
-    m_LeftColumn SCR_WelcomeScreenIntroductionContent "{5DE8C029C38F0CE7}" {
-     m_sTitleText "Dynamic Operations"
-     m_aIntroduction {
-      SCR_WelcomeScreenIntroduction "{5DE8C029C12229D2}" {
-       m_sContentImage "{C7166C9177C9D85D}Images/front picture.edds"
-       m_sContentTitleText "Stop the soviets"
-       m_sContentDescriptionText "The soviets have been gaining more control of the island these last few weeks. If we want to put a stop to this, we have to hit them where it hurts. Sabotage their equipment, kill their officers and disrupt their operations. If we succeed today, they might reconsider this invasion."
-      }
-     }
-    }
-    m_MiddleColumn SCR_WelcomeScreenDynamicObjectivesContent "{5DE8C02FCB7407CC}" {
-     m_sTitleText "Objectives"
-     m_aFactions {
-      SCR_WelcomeScreenDynamicTaskFaction "{5DE8C02C292C48D1}" {
-       m_sFactionKey "US"
-      }
-     }
-    }
-    m_RightColumn SCR_WelcomeScreenIntroductionContent "{5DE8C02FDD7C6FF2}" {
-     m_sTitleText "Preparations"
-     m_aIntroduction {
-      SCR_WelcomeScreenIntroduction "{5DE8C02FE354E142}" {
-       m_sContentTitleText "Choose an infiltration point"
-       m_sContentDescriptionText "Two spots have been prepared for us where we can lay low and prepare for our mission. We will find vehicles and enough weapons and gear to take down an army. Pick one of the sites and prepare to take on the enemy."
-      }
-     }
-    }
+  SCR_WelcomeScreenComponent "{5EE299F1BD3AE565}" {
+   m_BaseLayout SCR_DeployMenuBaseScreenLayout "{5EE299F1C89FA997}" {
    }
-  }
-  SerializerInventoryStorageManagerComponent "{5D50B650751DEB42}" {
   }
  }
- coords 4859.425 28.595 11863.532
- userScript "	private ref SCR_DynamicOperations m_dynamicOperations;"\
- "	"\
- "	SCR_DynamicOperations GetDynamicOparations()"\
- "	{"\
- "		return m_dynamicOperations;"\
- "		"\
- "	}"
- OnGameStart ""\
- "		super.OnGameStart();"\
- "		m_dynamicOperations = new SCR_DynamicOperations();"\
- "		m_dynamicOperations.GenerateDynamicOperation();"\
- "	"
- m_fAutoReloadTime 20
+ coords 4876.855 28.593 11855.653
+ userScript "	// code here"\
+ ""
 }
