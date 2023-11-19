@@ -7,17 +7,19 @@ class SCR_DynamicOperationsConstants
 		// locations that have the standardized SCR_SiteSlotEntity elemements in the hierarchy
 		
 		// Towns
-		"C_Location_St_Pierre", "C_LocationChotain", "C_LocationDurras", "C_LocationEntreDeux", 
+		"C_Location_St_Pierre", "C_LocationChotain", 
+		"C_LocationDurras", "C_LocationEntreDeux", 
 		"C_LocationFigari", "C_LocationGravette", "C_LocationLamentin", "C_LocationLaruns", 
 		"C_LocationLeMoule", "C_LocationLevie", "C_LocationMeaux", "C_LocationMontignac", 
 		"C_LocationMorton", "C_LocationProvins", "C_LocationRegina", "C_LocationStPhilippe", 
 		"C_LocationTyrone", "C_LocationVernon", "C_LocationVilleneuve",
 		
 		// Villages
-		"S_Kermovan", "S_Lancre", 
+		"S_Kermovan",
 		
 		// Points of interest
-		"G_Airport", "G_Farm2", "G_Farm3", "G_Industrial", "G_Industrial3", "G_Landfill",
+		"G_Airport", 
+		"G_Farm2", "G_Farm3", "G_Industrial", "G_Industrial3", "G_Landfill",
 		"G_Military", "G_Military3", "G_Military5", "G_Military6", "G_Quarry", "G_Sawmill", 
 		"G_MontfortCastle", "Barracks"
 	};

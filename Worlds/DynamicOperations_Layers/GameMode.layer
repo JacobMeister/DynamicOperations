@@ -11,8 +11,37 @@ SCR_BaseGameMode GameModeSF1 : "{ECEEDB2D3737204B}Prefabs/ScenarioFramework/Game
     m_sForcedFaction "US"
    }
   }
-  SCR_WelcomeScreenComponent "{5EE299F1BD3AE565}" {
-   m_BaseLayout SCR_DeployMenuBaseScreenLayout "{5EE299F1C89FA997}" {
+  SCR_WelcomeScreenComponent "{5EE33386B7418930}" {
+   m_sHeaderTitle "Dynamic Operations - Everon"
+   m_sHeaderSubtitle "Complete the objectives and extract"
+   m_BaseLayout SCR_WelcomeScreenThreeHorizontalColumns "{5EE33386BB1B302D}" {
+    m_LeftColumn SCR_WelcomeScreenIntroductionContent "{5EE33386D48E922C}" {
+     m_sTitleText "Dynamic Operations"
+     m_aIntroduction {
+      SCR_WelcomeScreenIntroduction "{5EE33386DDE6C30F}" {
+       m_sContentImage "{C7166C9177C9D85D}Images/front picture.edds"
+       m_sContentTitleText "Stop the soviets"
+       m_sContentDescriptionText "The soviets have been gaining more control of the island these last few weeks. If we want to put a stop to this, we have to hit them where it hurts. Sabotage their equipment, kill their officers and disrupt their operations. If we succeed today, they might reconsider this invasion."
+      }
+     }
+    }
+    m_MiddleColumn SCR_WelcomeScreenDynamicObjectivesContent "{5EE333860337E8E1}" {
+     m_sTitleText "Objectives"
+     m_aFactions {
+      SCR_WelcomeScreenDynamicTaskFaction "{5EE33386013A46B0}" {
+       m_sFactionKey "US"
+      }
+     }
+    }
+    m_RightColumn SCR_WelcomeScreenIntroductionContent "{5EE333861148C46C}" {
+     m_sTitleText "Preparations"
+     m_aIntroduction {
+      SCR_WelcomeScreenIntroduction "{5EE3338618EB5AF1}" {
+       m_sContentTitleText "Choose an infiltration point"
+       m_sContentDescriptionText "Two spots have been prepared for us where we can lay low and prepare for our mission. We will find vehicles and enough weapons and gear to take down an army. Pick one of the sites and prepare to take on the enemy. You can also fly to the AO from any of the forward operating bases."
+      }
+     }
+    }
    }
   }
  }

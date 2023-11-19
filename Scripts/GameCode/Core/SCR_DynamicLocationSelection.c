@@ -34,7 +34,22 @@ class SCR_DynamicLocationSelection
 			}
 		}
 		
+		// If no secondary mission locations could be found, get 2 default locations
+		if(possibleSecondaryMissionLocations.Count() == 0)
+		{
+			if(initialLocationName == SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS[0])
+			{
+				possibleSecondaryMissionLocations.Insert(SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS[2]);
+			}
+			else
+			{
+				possibleSecondaryMissionLocations.Insert(SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS[0]);
+			}
+			possibleSecondaryMissionLocations.Insert(SCR_DynamicOperationsConstants.POSSIBLE_MISSION_LOCATIONS[1]);
+		}
+		
 		missionLocationArray.Insert(GetLocation(initialLocationName));
+		
 		for (int i = 1; i < SCR_DynamicOperationsConstants.AMOUNT_OF_MISSIONS; i++)
 		{
 			int randomInt = m_random.RandInt(0, possibleSecondaryMissionLocations.Count());
@@ -94,7 +109,7 @@ class SCR_DynamicLocationSelection
 		}
 	}
 	
-	// Get all patrol locations between 2500 and 3500 meters of the location and add them to the location
+	// Get all delivery locations between 2500 and 3500 meters of the location and add them to the location
 	protected void GetDeliveryLocations(SCR_Location location)
 	{
 		foreach(string patrolLocation : SCR_DynamicOperationsConstants.PATROL_LOCATIONS)
@@ -238,7 +253,6 @@ class SCR_DynamicLocationSelection
 		m_locationEntities.Set("C_LocationVernon", "Vernon");
 		m_locationEntities.Set("C_LocationVilleneuve", "Villeneuf");
 		m_locationEntities.Set("S_Kermovan", "FishingSettlement_N");
-		m_locationEntities.Set("Lancre", "FishingSettlement_S");
 		m_locationEntities.Set("G_Airport", "Airfield");
 		m_locationEntities.Set("G_Farm2", "Farm_Meaux");
 		m_locationEntities.Set("G_Farm3", "Farm_Montignac");

@@ -1,0 +1,71 @@
+$grp GenericEntity : "{13A99500A14FA14C}Prefabs/Props/Military/SupplyBox/SupplyShippingContainers/SupplyShippingContainers_01/SupplyShippingContainers_01_20ft.et" {
+ {
+  coords 10947.231 26.276 8679.022
+  angleX -4.442
+  angleY -1.507
+  angleZ 1.01
+ }
+ {
+  coords 10952.174 26.076 8679.225
+  angleX -1.79
+  angleZ 3.575
+ }
+}
+GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
+ coords 10936.793 23.494 8703.566
+ angleX -3.97
+ angleY 87.682
+ angleZ -9.581
+}
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ coords 10942.459 23.001 8705.718
+ angleX 4.887
+ angleY -120.836
+ angleZ 6.409
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "FOB Silver"
+ }
+}
+$grp Vehicle : "{70BAEEFC2D3FEE64}Prefabs/Vehicles/Helicopters/UH1H/UH1H.et" {
+ UH1H4 {
+  coords 10931.631 27.651 8674.832
+  angleY -62.269
+ }
+ UH1H5 {
+  coords 10927.806 23.657 8727.551
+  angleY -127.426
+ }
+}
+$grp StaticModelEntity : "{7784DA55DC0F253C}PrefabsEditable/Auto/Structures/Military/Camps/HelipadImprovised_01/E_HelipadImprovised_US_01.et" {
+ {
+  coords 10932.19 0.919 8675.327
+ }
+ {
+  coords 10927.755 0.806 8728.246
+  angleY -34.168
+ }
+}
+StaticModelEntity : "{979A564D476B5AAE}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_tall.et" {
+ coords 10969.282 -0.601 8700.089
+ angleY -128.803
+}
+GenericEntity : "{9F35A268E0DD98A4}Prefabs/Props/Military/Fuel/MobileWaterTank_US_01_fuel.et" {
+ coords 10930.426 25.541 8690.366
+ angleX -4.469
+ angleY -0.125
+ angleZ -0.883
+}
+GenericEntity : "{A528F04F41F2A2D0}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_on.et" {
+ coords 10969.143 27.318 8700.008
+ angleY 50.679
+}
+GenericEntity : "{F09296B9255F6704}Prefabs/Compositions/Misc/SubCompositions/Tents/Tent_CommandPost_US_01.et" {
+ coords 10949.782 22.658 8710.18
+ angleY -161.837
+}
+GenericEntity : "{F15B99F6B06E7200}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_generator.et" {
+ coords 10964.666 23.845 8695.662
+ angleX -5.772
+ angleY -39.316
+ angleZ 6.987
+}

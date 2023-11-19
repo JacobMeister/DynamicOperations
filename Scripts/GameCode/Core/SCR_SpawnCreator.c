@@ -80,6 +80,7 @@ class SCR_SpawnCreator
 	void FurnishSpawnPoint(vector spawnPosition)
 	{
 		string arsenalEntityId = "{BE99D77D1155B127}Prefabs/Systems/Arsenal/ArsenalBoxes/US/ArsenalBox_US.et";
+		string supplyBoxEntityId = "{13A99500A14FA14C}Prefabs/Props/Military/SupplyBox/SupplyShippingContainers/SupplyShippingContainers_01/SupplyShippingContainers_01_20ft.et";
 		string carEntityId = "{5168FEA3054D6D15}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB_MERDC.et";
 		string tentEntityId = "{3A6623EADBD13358}Prefabs/Structures/Military/Camps/TentSmallUS_01/TentSmallUS_01_Base.et";
 		string fireplaceEntityId = "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et";
@@ -97,6 +98,8 @@ class SCR_SpawnCreator
 		// move it some distance from the spawnpoint
 		vector arsenalSpawnPosition = spawnPosition;
 		arsenalSpawnPosition[0] = arsenalSpawnPosition[0] + 5;
+		vector supplyBoxSpawnPosition = spawnPosition;
+		supplyBoxSpawnPosition[1] = supplyBoxSpawnPosition[1] - 7;
 		vector carSpawnPosition = spawnPosition;
 		carSpawnPosition[0] = carSpawnPosition[0] - 5;
 		vector tentSpawnPosition = spawnPosition;
@@ -106,6 +109,7 @@ class SCR_SpawnCreator
 		
 		array<IEntity> spawnedEntities = new array<IEntity>();
 		
+		SCR_SpawnSetup.SpawnEntity(supplyBoxSpawnPosition, supplyBoxEntityId, "FurnishSpawnPoint/HiddenSupplyBox", false);
 		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(arsenalSpawnPosition, arsenalEntityId, "FurnishSpawnPoint/Arsenal"));
 		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(carSpawnPosition, carEntityId, "FurnishSpawnPoint/Car"));
 		spawnedEntities.Insert(SCR_SpawnSetup.SpawnEntity(tentSpawnPosition, tentEntityId, "FurnishSpawnPoint/Tent"));

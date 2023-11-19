@@ -1,0 +1,180 @@
+$grp GenericEntity : "{13A99500A14FA14C}Prefabs/Props/Military/SupplyBox/SupplyShippingContainers/SupplyShippingContainers_01/SupplyShippingContainers_01_20ft.et" {
+ {
+  coords 3068.862 8.331 2250.303
+  angleX 3.577
+  angleY 90.067
+  angleZ -0.889
+ }
+ {
+  coords 3069.58 8.439 2246.231
+  angleX 3.545
+  angleY 88.125
+  angleZ -1.01
+ }
+ {
+  coords 3062.187 7.866 2249.511
+  angleX -1.033
+  angleY -1.772
+  angleZ -4.437
+ }
+ {
+  coords 3067.995 8.247 2254.233
+  angleX 3.561
+  angleY 89.039
+  angleZ -0.953
+ }
+}
+StaticModelEntity : "{2BC7C6DE43AC49E2}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_short.et" {
+ coords 3070.694 -0.287 2288.155
+}
+GenericEntity : "{2C303FA30DF3D73F}Prefabs/Props/Military/AmmoBoxes/US/EquipmentBoxWooden_Ammunition_01_US.et" {
+ coords 3095.422 8.819 2265.91
+}
+Vehicle M923A1_command1 : "{36BDCC88B17B3BFA}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command.et" {
+ coords 3103.805 8.781 2272.525
+ angleY 87.019
+}
+Vehicle M997_maxi_ambulance_MERDC1 : "{3B1EB924602C7A07}Prefabs/Vehicles/Wheeled/M998/M997_maxi_ambulance_MERDC.et" {
+ coords 3082.48 9.015 2243.771
+ angleX 0.927
+ angleY 148.835
+ angleZ 1.531
+}
+GenericEntity : "{451BE00A37C69679}Prefabs/Structures/Military/Radar/ApproachRadar_TPN19_01/ApproachRadar_TPN19_01_generator.et" {
+ coords 3061.881 7.588 2283.149
+ angleX 0.004
+ angleY 0.081
+ angleZ -2.684
+}
+GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
+ coords 3093.829 8.85 2264.802
+ angleX -0.076
+ angleY 87.56
+ angleZ -1.788
+}
+Vehicle M1 : "{5674FAEB9AB7BDD0}Prefabs/Vehicles/Wheeled/M998/M998.et" {
+ coords 3106.398 8.922 2262.303
+ angleX -1.789
+ angleY -0.028
+ angleZ 0.896
+}
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ coords 3085.522 8.78 2261.814
+ angleX -3.058
+ angleY 74.154
+ angleZ -7.454
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "FOB Willow"
+ }
+}
+GenericEntity : "{5C9A089F424D8001}Prefabs/Props/Military/AmmoBoxes/US/EquipmentBoxWooden_Weapon_01_US.et" {
+ coords 3096.388 8.879 2263.81
+}
+$grp GenericEntity : "{5DF32BDA2A8C5A3D}Prefabs/Props/Military/Camps/PalletAmmo_01_US_camo.et" {
+ {
+  coords 3098.073 8.949 2261.636
+  angleX -1.79
+ }
+ {
+  coords 3096.517 8.941 2261.855
+  angleX -1.79
+ }
+}
+$grp Vehicle : "{70BAEEFC2D3FEE64}Prefabs/Vehicles/Helicopters/UH1H/UH1H.et" {
+ UH1H6 {
+  coords 3095.161 8.961 2289.289
+  angleY 42.941
+ }
+ UH1H7 {
+  coords 3137.079 9.188 2262.264
+  angleY -22.243
+ }
+ UH1H8 {
+  coords 3104.657 9.898 2240.396
+  angleY 77.499
+ }
+}
+$grp GenericEntity : "{7389C3874BF54AC2}Prefabs/Props/Military/AmmoBoxes/US/EquipmentBoxWooden_Launcher_01_US.et" {
+ {
+  coords 3095.492 8.858 2264.559
+ }
+ {
+  coords 3095.557 8.852 2265.056
+ }
+ {
+  coords 3095.528 9.073 2264.841
+ }
+}
+$grp StaticModelEntity : "{7784DA55DC0F253C}PrefabsEditable/Auto/Structures/Military/Camps/HelipadImprovised_01/E_HelipadImprovised_US_01.et" {
+ {
+  coords 3136.989 0.404 2262.837
+ }
+ {
+  coords 3104.972 0.306 2241.171
+ }
+ {
+  coords 3095.699 0.246 2289.647
+ }
+}
+$grp GenericEntity : "{7F9923063FBB628B}Prefabs/Props/Military/AmmoBoxes/AmmoBox_762x51_200rnd.et" {
+ {
+  coords 3094.432 8.816 2266.228
+ }
+ {
+  coords 3094.498 8.811 2266.567
+ }
+}
+GenericEntity : "{9F35A268E0DD98A4}Prefabs/Props/Military/Fuel/MobileWaterTank_US_01_fuel.et" {
+ coords 3097.838 8.818 2267.431
+ angleX -0.898
+ angleY -0.18
+ angleZ -0.892
+}
+GenericEntity : "{A528F04F41F2A2D0}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_on.et" {
+ coords 3070.362 8.562 2287.906
+}
+$grp GenericEntity : "{AE0FFC699F429214}Prefabs/Props/Military/Camps/PalletAmmo_01_US.et" {
+ {
+  coords 3098.144 8.999 2260.022
+  angleX -1.79
+ }
+ {
+  coords 3096.544 8.973 2260.28
+  angleX -0.895
+  angleY 0.014
+  angleZ -0.895
+ }
+}
+GenericEntity : "{B4F2701CBBE49C48}Prefabs/Props/Military/Antennas/Antenna_RC292_01.et" {
+ coords 3079.366 8.943 2239.624
+}
+Vehicle M998_covered1 : "{B55C6990A6A9411B}Prefabs/Vehicles/Wheeled/M998/M998_covered.et" {
+ coords 3080.267 8.814 2254.359
+ angleX 1.259
+ angleY 65.552
+ angleZ -1.555
+}
+$grp GenericEntity : "{DB4F61D5F37432F7}Prefabs/Props/Military/Camps/PalletFuel_01.et" {
+ {
+  coords 3100.452 8.946 2261.715
+  angleX -1.79
+ }
+ {
+  coords 3102.944 8.942 2261.684
+  angleX -0.895
+ }
+ {
+  coords 3101.75 9.009 2259.434
+  angleX -0.895
+ }
+}
+GenericEntity : "{E521AEA6D14589B1}Prefabs/Props/Military/AmmoBoxes/AmmoBox_545x39_2160rnd.et" {
+ coords 3094.841 8.81 2266.973
+}
+GenericEntity : "{F0404B3895D3F80E}Prefabs/Props/Military/AmmoBoxes/US/EquipmentBoxWooden_Medical_01_US.et" {
+ coords 3094.99 8.893 2263.412
+}
+GenericEntity : "{F09296B9255F6704}Prefabs/Compositions/Misc/SubCompositions/Tents/Tent_CommandPost_US_01.et" {
+ coords 3077.272 8.596 2259.686
+ angleY 73.635
+}

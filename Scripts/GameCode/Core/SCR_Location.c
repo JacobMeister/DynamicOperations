@@ -39,7 +39,7 @@ class SCR_Location
 	int GetAmountOfSoldiers()
 	{
 		int slotAmount = m_slotManager.GetAmountOfSlots();
-		return Math.Round(slotAmount/2.5);
+		return Math.Round(slotAmount/2);
 	}
 	
 	void AddPatrolLocation(vector patrolLocation)

@@ -20,6 +20,12 @@ modded class SCR_ScenarioFrameworkPluginTrigger
 		m_aSpecificClassNames = {};
 		m_aPrefabFilter = {};
 	}
+	
+	void SetVehicleTrigger()
+	{
+		m_eActivationPresence = TA_EActivationPresence.SPECIFIC_CLASS;
+		m_aSpecificClassNames = { "Vehicle" };
+	}
 
 	void SetRadius(float radius)
 	{
@@ -316,29 +322,67 @@ modded class SCR_ScenarioFrameworkActionEndMission
 
 modded class SCR_TaskDeliver
 {
-	override void RegisterPlayer(int iPlayerID, IEntity playerEntity)
+	override void Init()
 	{
-		super.RegisterPlayer(iPlayerID, playerEntity);
-
-		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
-		if (gameMode)
-			gameMode.GetOnPlayerKilled().Insert(OnPlayerKilled);
-	}
-
-	void OnPlayerKilled(int playerId, IEntity player, IEntity killerEntity, notnull Instigator killer)
-	{
-		if (!player)
-		return;
-
-		InventoryStorageManagerComponent inventoryComponent = InventoryStorageManagerComponent.Cast(player.FindComponent(InventoryStorageManagerComponent));
-		if (!inventoryComponent)
-			return;
-
-		if (inventoryComponent.Contains(m_Asset))
+		super.Init();
+		if (Vehicle.Cast(m_Asset))
 		{
-			UpdateTaskTitleAndDescription(5);
+			EventHandlerManagerComponent ehManager = EventHandlerManagerComponent.Cast(m_Asset.FindComponent(EventHandlerManagerComponent));
+			if (ehManager)
+			{
+				ehManager.RegisterScriptHandler("OnCompartmentEntered", this, OnCompartmentEntered, false);
+				ehManager.RegisterScriptHandler("OnCompartmentLeft", this, OnCompartmentLeft, false);
+			}
+		}
+	}
+	
+	// if player is killed while in vehicle, do nothing if there are other players inside, otherwise set task to state 5
+	override void OnDestroyed(IEntity destroyedEntity)
+	{
+		super.OnDestroyed(destroyedEntity);
+		int amountOfPlayersInCar = 0;
+		SCR_BaseCompartmentManagerComponent comp = SCR_BaseCompartmentManagerComponent.Cast(m_Asset.FindComponent(SCR_BaseCompartmentManagerComponent));
+		if(comp)
+		{
+			array<IEntity> occupants;
+			comp.GetOccupants(occupants);
+			foreach(IEntity occupant: occupants)
+			{
+				if(!EntityUtils.IsPlayer(occupant))
+				{
+					amountOfPlayersInCar++;
+				}
+			}
+			if(amountOfPlayersInCar == 0)
+			{
+				SetState(SCR_TaskState.UPDATED);
+				UpdateTaskTitleAndDescription(0);
+			}
+		}
+	}
+	
+	void OnCompartmentEntered(IEntity vehicle, BaseCompartmentManagerComponent mgr, IEntity occupant, int managerId, int slotID)
+	{
+		if(!EntityUtils.IsPlayer(occupant))
+		{
 			return;
 		}
+		UpdateTaskTitleAndDescription(1);
+		if (!m_bDeliveryItemFound)
+		{
+			m_bDeliveryItemFound = true;
+			SetState(SCR_TaskState.PROGRESSED);
+		}
+	}
+	
+	void OnCompartmentLeft(IEntity vehicle, BaseCompartmentManagerComponent mgr, IEntity occupant, int managerId, int slotID)
+	{
+		if(!EntityUtils.IsPlayer(occupant))
+		{
+			return;
+		}
+		SetState(SCR_TaskState.UPDATED);
+		UpdateTaskTitleAndDescription(0);
 	}
 }
 

@@ -80,6 +80,27 @@ class SCR_SlotManager
 		return randomSlot;
 	}	
 	
+	SCR_SiteSlotEntity GetSlotSuitableForHelicopterTask()
+	{
+		foreach(SCR_SiteSlotEntity slot : m_slots)
+		{
+			string prefabName = slot.GetPrefabData().GetPrefabName();
+			if(prefabName == "{055DDE93F47A6A1D}PrefabsEditable/Slots/Flat/E_SlotFlatLarge.et")
+			{
+				return slot;
+			}
+		}
+		foreach(SCR_SiteSlotEntity slot : m_slots)
+		{
+			string prefabName = slot.GetPrefabData().GetPrefabName();
+			if(prefabName == "{4B1C4BDDF6683101}PrefabsEditable/Slots/Flat/E_SlotFlatMedium.et")
+			{
+				return slot;
+			}
+		}
+		return m_slots[0];
+	}
+	
 	// Get random slot
 	SCR_SiteSlotEntity GetRandomSlot()
 	{

@@ -1,0 +1,249 @@
+GenericEntity : "{028D9156F90205DE}Prefabs/Props/Military/Camps/ConstructionMaterialPacked_WoodPlanks_01_US.et" {
+ coords 1158.46 43.06 11491.421
+}
+GenericEntity : "{0958E6B949501D00}Prefabs/Props/Military/Generators/GeneratorPortable_US_01.et" {
+ coords 1170.976 44.582 11506.36
+ angleX -0.641
+ angleY -69.016
+ angleZ 1.671
+}
+$grp GenericEntity : "{13A99500A14FA14C}Prefabs/Props/Military/SupplyBox/SupplyShippingContainers/SupplyShippingContainers_01/SupplyShippingContainers_01_20ft.et" {
+ {
+  coords 1191.819 43.599 11510.813
+  angleX -1.79
+ }
+ {
+  coords 1187.918 43.632 11510.858
+  angleX -1.788
+  angleY -0.056
+  angleZ 1.791
+ }
+}
+StaticModelEntity : "{2BC7C6DE43AC49E2}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_short.et" {
+ coords 1145.199 -0.432 11486.871
+}
+StaticModelEntity : "{34F58F49290CBB7B}PrefabsEditable/Auto/Compositions/Misc/SubCompositions/E_Tent_Barrack_Cluttered_US_01.et" {
+ coords 1166.149 44.414 11508.915
+ angleY 32.097
+}
+GenericEntity : "{451BE00A37C69679}Prefabs/Structures/Military/Radar/ApproachRadar_TPN19_01/ApproachRadar_TPN19_01_generator.et" {
+ coords 1135.831 41.75 11493.309
+ angleX -0.892
+ angleY 0.056
+ angleZ -3.577
+}
+$grp GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
+ {
+  coords 1193.201 43.888 11492.2
+  angleY 87.012
+ }
+ {
+  coords 1137.502 42.93 11537.415
+  angleX 5.309
+  angleY -0.499
+  angleZ -5.379
+ }
+ {
+  coords 1111 40.375 11512.338
+  angleX -1.123
+  angleY 107.542
+  angleZ 0.584
+ }
+}
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ components {
+  SCR_MapDescriptorComponent "{54C659A97C47BDE2}" {
+   DisplayName "Pins Island FOB"
+   ForceRotationAngle 0
+  }
+ }
+ coords 1175.274 44.257 11493.778
+ angleY 87.973
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "FOB Pine"
+ }
+}
+StaticModelEntity : "{61EBFF9FAC0429DE}PrefabLibrary/Infrastructure/Towers/TransmissionTower_01.et" {
+ coords 1174.829 35.638 11426.502
+ angleY -74.983
+}
+GenericEntity : "{63CBCCD35D82066C}Prefabs/Props/Military/CargoContainers/CargoContainer_01_20ft_US_supplies.et" {
+ coords 1175.021 44.14 11486.226
+}
+$grp Vehicle : "{70BAEEFC2D3FEE64}Prefabs/Vehicles/Helicopters/UH1H/UH1H.et" {
+ UH1H1 {
+  coords 1202.594 44.284 11494.361
+ }
+ UH1H2 {
+  coords 1101.358 41.869 11499.898
+  angleY 90.113
+ }
+ UH1H3 {
+  coords 1146.145 44.499 11545.608
+  angleY 135.337
+ }
+}
+$grp StaticModelEntity : "{7784DA55DC0F253C}PrefabsEditable/Auto/Structures/Military/Camps/HelipadImprovised_01/E_HelipadImprovised_US_01.et" {
+ {
+  coords 1101.688 1.677 11500.359
+ }
+ {
+  coords 1146.02 0.28 11546.271
+  angleY -40.485
+ }
+}
+GenericEntity : "{90C62D3DBDEB0758}Prefabs/Props/Military/Camps/ConstructionMaterialPacked_Base.et" {
+ coords 1163.311 43.592 11491.262
+}
+$grp GenericEntity : "{97A03B43D914B4DD}Prefabs/Props/Military/SupplyBox/SupplyShippingContainers/SupplyShippingContainers_01/SupplyShippingContainers_01_20ft_Base.et" {
+ {
+  coords 1157.434 44.006 11521.674
+  angleX 1.738
+  angleY 52.297
+  angleZ -3.6
+ }
+ {
+  coords 1153.137 43.787 11522.943
+  angleX 5.015
+  angleY 51.836
+  angleZ 0.6
+ }
+}
+GenericEntity : "{9F35A268E0DD98A4}Prefabs/Props/Military/Fuel/MobileWaterTank_US_01_fuel.et" {
+ coords 1180.525 43.931 11485.104
+ angleX 0.893
+ angleY 0.042
+ angleZ 2.684
+}
+GenericEntity : "{A528F04F41F2A2D0}Prefabs/Structures/Military/Radar/ApproachRadar_RPL5_01/ApproachRadar_RPL5_01_on.et" {
+ coords 1145.261 42.952 11486.886
+}
+$grp GenericEntity : "{BE7B5BAFE1A16A50}Prefabs/Props/Military/Fortification/BarbedTape_Coil.et" {
+ {
+  coords 1167.166 -0 11489.623
+ }
+ {
+  coords 1169.122 -0 11489.29
+ }
+}
+GenericEntity : "{C6B534F64C60C583}PrefabsEditable/Auto/Compositions/Slotted/SlotFlatLarge/E_Helipad_L_US_01.et" {
+ coords 1202.245 43.807 11493.654
+ angleY 179.275
+ {
+  GenericEntity {
+   ID "5E64C0F12EB3EBEC"
+   {
+    DecalEntity {
+     ID "56E0B29E01E2AC90"
+     coords 0 0 0
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E64C0FB916EAF90"
+  }
+  GenericEntity {
+   ID "5E69068BD3F68B0C"
+   scale 0.99
+  }
+  GenericEntity {
+   ID "5E6A9384DDD03956"
+   {
+    GenericEntity {
+     ID "5E6A90B022FE573D"
+     coords 0 0 6.5
+     angleY 0.706
+    }
+   }
+  }
+ }
+}
+$grp GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+ {
+  coords 1174.937 44.38 11497.295
+  angleX 5.468
+  angleY 23.411
+  angleZ 1.888
+ }
+ {
+  coords 1173.904 44.278 11494.887
+  angleX -1.716
+  angleY -73.44
+  angleZ -0.51
+ }
+ {
+  coords 1163.439 44.224 11504.389
+  angleX 11.493
+  angleY 31.675
+  angleZ -0.802
+ }
+ {
+  coords 1161.742 43.619 11501.348
+  angleX 6.337
+  angleY 27.327
+  angleZ -3.604
+ }
+ {
+  coords 1123.226 42.044 11523.442
+  angleX 3.478
+  angleY -61.155
+  angleZ -1.569
+ }
+ {
+  coords 1112.82 40.343 11511.314
+  angleY 48.78
+ }
+ {
+  coords 1115.635 40.395 11513.871
+  angleX 1.264
+  angleY 44.923
+  angleZ -1.267
+ }
+ {
+  coords 1117.939 40.801 11515.977
+  angleX 11.215
+  angleY 46.411
+  angleZ 1.516
+ }
+ {
+  coords 1120.645 41.519 11518.454
+  angleX 8.197
+  angleY 48.768
+  angleZ -0.09
+ }
+ {
+  coords 1123.154 41.853 11521.038
+  angleX 5.198
+  angleY 34.163
+  angleZ 0.29
+ }
+ {
+  coords 1126.631 41.984 11524.479
+  angleX -3.516
+  angleY 58.461
+  angleZ 1.108
+ }
+}
+GenericEntity : "{DB4F61D5F37432F7}Prefabs/Props/Military/Camps/PalletFuel_01.et" {
+ coords 1179.921 44.125 11489.95
+}
+GenericEntity : "{DFF391458A7AC773}Prefabs/Props/Military/WaterTanks/MobileWaterTank_US_01.et" {
+ coords 1138.396 42.106 11510.249
+ angleX 5.164
+ angleY 124.28
+ angleZ 3.511
+}
+GenericEntity : "{F09296B9255F6704}Prefabs/Compositions/Misc/SubCompositions/Tents/Tent_CommandPost_US_01.et" {
+ coords 1176.848 44.479 11502.589
+ angleY -161.837
+}
+StaticModelEntity : "{F17A7CA21AF9C167}PrefabsEditable/Auto/Compositions/Misc/SubCompositions/E_Tent_Medical_Cluttered_US_02.et" {
+ coords 1118.546 41.906 11526.083
+ angleX -2.776
+ angleY -60.502
+ angleZ -0.543
+}
+GenericEntity : "{FB0F12529D2FD0DA}Prefabs/Props/Military/FieldKitchenTrailerUS_01.et" {
+ coords 1160.197 44.168 11512.247
+ angleY 117.583
+}

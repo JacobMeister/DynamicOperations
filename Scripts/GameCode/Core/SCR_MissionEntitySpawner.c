@@ -92,7 +92,7 @@ class SCR_MissionEntitySpawner
 			// only spawn 3 soldiers on checkpoints to prevent enormous amount of soldiers in larger towns with more road slots
 			if(count < 3)
 			{
-				m_aiSpawner.SpawnAI("{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et", slot.GetOrigin(), "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et", slot.GetOrigin());
+				m_aiSpawner.SpawnAI(SCR_Prefab_Constants.ussr_sentryTeam, slot.GetOrigin(), "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et", slot.GetOrigin());
 			}
 			count++;
 			slotManager.MarkAsUsed(slot);
@@ -152,7 +152,7 @@ class SCR_MissionEntitySpawner
 			// spawn prefab on slots
 			SCR_SpawnSetup.SpawnPrefabOnSlot(slot, m_smallSlotPrefabs[m_random.RandInt(0,m_smallSlotPrefabs.Count())], "SpawnSoldiersInMissionArea/Prefabs");
 			
-			// spawn soldiers on slots 
+			// spawn soldiers on slots
 			switch (soldierCount)
 			{
 				case 2:
